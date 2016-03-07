@@ -1,8 +1,37 @@
-CAPSTONE
-========
+AUTO GRADER
+===========
 
 This repository contains the final year capstone project created by my group.
 It is primarily built with the java Play! framework that handles the backend
 computation.
 
+This readme partially acts a development journal and will be updated a weekly
+basis, in the form of progress reports.
+
+# How it works
+
+The application is intended to analyze programs created by students against 
+lecturer defined constraints.
+
+# Progress
+
+## Week 1
+
+The application is currently deployed and hosted on digital ocean, and monitored
+with the jenkins CI system.
+
+# Contributing
+
+The repository is currently limited to contributions from the capstone team,
+namely: 
+* Kerry-ann Lewis
+* Tevin
+* Shane Richards
+* Yerodin Richards
+
+# Workflow
+
+The master branch is exclusively intended to hold production ready code. This is to
+ensure the build is not broken and the live demonstration is always available. Merging
+into the master branch will trigger continuous integration tests by jenkins.
 
