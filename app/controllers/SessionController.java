@@ -8,10 +8,12 @@ import views.html.*;
 public class SessionsCtrl extends Controller {
 
 	public Result login() {
-		return ok();
+		// TODO
+		return ok("Login");
 	}
 
 	public Result register() {
-		return ok();
+		// TODO
+		return ok("Register");
 	} 
 }
