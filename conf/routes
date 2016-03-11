@@ -19,9 +19,11 @@ GET		/login						controllers.SessionsCtrl.login
 GET		/register					controllers.SessionsCtrl.register
 
 # Student pages
+GET		/students					controllers.StudentsCtrl.all
 GET		/students/$id<[0-9]>		controllers.StudentsCtrl.show(id: Long)
 
 # Lecturer pages
+GET		/lecturers					controllers.LecturersCtrl.all
 GET		/lecturers/$id<[0-9]>		controllers.LecturersCtrl.show(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path

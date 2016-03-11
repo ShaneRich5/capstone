@@ -4,8 +4,11 @@ import play.*;
 import play.mvc.*;
 
 import views.html.*;
+import models.*;
 
 public class SessionsCtrl extends Controller {
+
+	Form<User> userForm = Form.form(User.class);
 
 	public Result login() {
 		// TODO
