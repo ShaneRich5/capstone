@@ -32,6 +32,7 @@ public class ApplicationTest {
     public void simpleCheck() {
         int a = 1 + 1;
         assertEquals(2, a);
+        assertEquals(4, 4);
     }
 
     @Test
