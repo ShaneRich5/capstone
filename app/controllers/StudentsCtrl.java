@@ -14,4 +14,8 @@ public class StudentsCtrl extends Controller {
 	public Result all() {
 		return ok("All Students");
 	}
+
+	public Result store() {
+		return ok("Created new student");
+	}
 }

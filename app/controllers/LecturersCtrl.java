@@ -15,4 +15,8 @@ public class LecturersCtrl extends Controller {
 		// TODO
 		return ok("All Lecturers");
 	}
+
+	public Result store() {
+		return ok("Saved new lecturer");
+	}
 }

@@ -8,8 +8,6 @@ import models.*;
 
 public class SessionsCtrl extends Controller {
 
-	Form<User> userForm = Form.form(User.class);
-
 	public Result login() {
 		// TODO
 		return ok("Login");
