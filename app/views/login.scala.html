@@ -1,23 +1,46 @@
+
 @main("Login") {
 
-	<h1>Login</h1>
-	
-	<form role="form">
-		<div class="form-group">
-			<label for="username">Username</label>
-			<input type="text" class="form-control" id="username">
-		</div>
+<div class="container">
+    <form role="form" method="POST" id="loginForm" action="/login">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" name="remember"> Remember me</label>
+        </div>
+        <button id="submit" type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
 
-		<div class="input-group">
-			<label for="password">Password</label>
-			<input type="password" class="form-control" id="password">
-		</div>
+<!--
+<script>
 
-		<div class="checkbox">
-			<label><input type="checkbox">Remember Me</label>
-		</div>
+    $("#submit").click(function(e) {
+        e.preventDefault();
 
-		<button type="submit" class="btn btn-default">Submit</button>
-	</form>
+        var formData = JSON.stringify($("#loginForm").serializeArray());
+
+        console.log(formData);
+
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            data: formData,
+            success: function() {
+                console.log("success!");
+            },
+            dataType: "json",
+            contentType: "application/json"
+        });
+    });
+
+</script>
+-->
 
 }

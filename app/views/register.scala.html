@@ -1,0 +1,36 @@
+
+@main("Register") {
+
+<div class="container">
+    <form role="form" method="POST" action="/register">
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password">
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">Confirm</label>
+            <input type="password" class="form-control" id="confirm_password">
+        </div>
+        <div class="form-group">
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="student" value="student"> Student
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="lecturer" value="lecturer"> Lecturer
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+}
