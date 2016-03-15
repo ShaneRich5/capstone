@@ -10,7 +10,7 @@ import play.data.validation.Constraints;
 @Table(name = "users")
 public class User extends Model {
 
-	public static Finder<Long, User> find = new Finder<Long, User>(User.class);
+	public static Finder<Long, User> find = new Finder<>(User.class);
 
 	@Id
 	public long id;
@@ -71,6 +71,7 @@ public class User extends Model {
 
 		return User.find.where().allEq(map).findUnique();
 	}
+
 
 	@Override
 	public void save() {
