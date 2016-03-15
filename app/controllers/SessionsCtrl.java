@@ -10,7 +10,7 @@ public class SessionsCtrl extends Controller {
 
 	public Result login() {
 		// TODO
-		return ok("Login");
+		return ok(login.render());
 	}
 
 	public Result register() {
