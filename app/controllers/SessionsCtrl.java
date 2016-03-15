@@ -3,10 +3,10 @@ package controllers;
 import models.Role;
 import models.User;
 import play.data.DynamicForm;
-import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
 import views.html.*;
+import views.html.pages.home;
 
 import javax.inject.Inject;
 

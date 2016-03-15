@@ -29,7 +29,7 @@ public class Role extends Model {
     /*
         Relationships
      */
-    @OneToOne(mappedBy = "id")
+    @OneToOne(mappedBy = "role")
     public User user;
 
 }

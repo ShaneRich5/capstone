@@ -1,10 +1,9 @@
 package controllers;
 
 import models.Role;
-import play.*;
 import play.mvc.*;
 
-import views.html.*;
+import views.html.pages.*;
 
 /**
  * This controller contains an action to handle HTTP requests

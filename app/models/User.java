@@ -13,7 +13,7 @@ public class User extends Model {
 	public static Finder<Long, User> find = new Finder<Long, User>(User.class);
 
 	@Id
-	public Long id;
+	public long id;
 
 
 	public String name;
@@ -31,7 +31,6 @@ public class User extends Model {
 		Relationships
 	 */
 	@OneToOne
-	@PrimaryKeyJoinColumn
 	public Role role;
 
 	public User(String name, String email, String password) {
