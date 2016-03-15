@@ -3,10 +3,9 @@ package models;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Constraint;
+import java.util.List;
 
 /**
  * Created by shane on 3/15/16.
@@ -20,8 +19,15 @@ public class Course extends Model {
     @Id
     public Long id;
 
+    @Column(unique = true)
     @Constraints.Required
     public String name;
 
-    // TODO
+    public String description;
+
+    @ManyToMany
+    public List<User> participants;
+
+    @OneToMany
+    public List<Assignment> assignments;
 }

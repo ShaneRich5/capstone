@@ -29,5 +29,26 @@ GET		/lecturers					controllers.LecturersCtrl.all
 GET		/lecturers/$id<[0-9]>		controllers.LecturersCtrl.show(id: Long)
 POST	/lecturers					controllers.LecturersCtrl.store
 
+# Course pages
+GET     /courses                    controllers.CoursesCtrl.all
+GET     /courses/create             controllers.CoursesCtrl.create
+POST    /courses                    controllers.CoursesCtrl.store
+GET     /courses/edit               controllers.CoursesCtrl.edit
+PUT     /courses                    controllers.CoursesCtrl.update
+GET     /courses/:id                controllers.CoursesCtrl.show(id: Long)
+
+# Submission pages
+# GET     /assignments                controllers.AssignmentsCtrl.all
+# GET     /assignments/create         controllers.AssignmentCtrl.create
+# POST    /assignments                controllers.AssignmentCtrl.store
+# GET     /assignments/edit           controllers.AssignmentCtrl.edit
+# PUT     /assignments                controllers.AssignmentCtrl.update
+# GET     /assignments/:id            controllers.AssignmentCtrl.show(id: Long)
+
+# Assignment pages
+
+
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

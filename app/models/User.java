@@ -15,7 +15,6 @@ public class User extends Model {
 	@Id
 	public long id;
 
-
 	public String name;
 
 	@Column(unique = true)
@@ -32,6 +31,17 @@ public class User extends Model {
 	 */
 	@OneToOne
 	public Role role;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	public List<Submission> submissions;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	public List<Assignment> assignments;
+
+	@ManyToMany
+	public List<Course> courses;
+
+	public User() {}
 
 	public User(String name, String email, String password) {
 		this.name = name;
@@ -64,12 +74,12 @@ public class User extends Model {
 	}
 
 	public static User authenticate(String email, String password) {
+		Map<String , Object> credentials = new HashMap<>();
 
-		Map<String , Object> map = new HashMap<>();
-		map.put("email", email);
-		map.put("password", password);
+		credentials .put("email", email);
+		credentials .put("password", password);
 
-		return User.find.where().allEq(map).findUnique();
+		return User.find.where().allEq(credentials ).findUnique();
 	}
 
 

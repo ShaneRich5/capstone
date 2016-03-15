@@ -5,8 +5,8 @@ import models.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.*;
-import views.html.*;
 import views.html.pages.home;
+import views.html.sessions.*;
 
 import javax.inject.Inject;
 

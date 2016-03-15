@@ -1,9 +1,11 @@
 package models;
 
 import com.avaje.ebean.Model;
+import play.data.validation.Constraints;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -13,6 +15,14 @@ import javax.persistence.Table;
 @Table(name = "assignments")
 public class Assignment extends Model {
 
+    public static Finder<Long, Assignment> find = new Finder<>(Assignment.class);
+
     @Id
     public Long id;
+
+    @Constraints.Required
+    public String description;
+
+    @ManyToOne
+    public User lecturer;
 }
