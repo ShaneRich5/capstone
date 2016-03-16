@@ -1,7 +1,12 @@
 
+
+
 @main("Assignments") {
 
 <div class="container">
+
+    <h1>New Course</h1>
+
     <form role="form" method="POST" id="courseForm" action="/courses">
         <div class="form-group">
             <label for="name">Name</label>
@@ -9,12 +14,9 @@
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" rows="5" id="description">
+            <textarea class="form-control" rows="5" id="description" name="description"></textarea>
         </div>
-        <div class="form-group">
-            <label for=""></label>
-            <input type="text">
-        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
     </form>
 </div>
 

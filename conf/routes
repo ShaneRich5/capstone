@@ -7,8 +7,10 @@
 # An example controller showing how to write asynchronous code
 # GET     /message                    controllers.AsyncController.message
 
-# Basic pages
+# Root page
 GET     /                           controllers.PagesCtrl.home
+
+# Home pages
 GET		/home 						controllers.PagesCtrl.home
 GET		/about						controllers.PagesCtrl.about
 GET		/contact					controllers.PagesCtrl.contact
@@ -19,15 +21,10 @@ GET		/register					controllers.SessionsCtrl.register
 POST    /login                      controllers.SessionsCtrl.authenticate
 POST    /register                   controllers.SessionsCtrl.store
 
-# Student pages
-GET		/students					controllers.StudentsCtrl.all
-GET		/students/$id<[0-9]>		controllers.StudentsCtrl.show(id: Long)
-POST	/students					controllers.StudentsCtrl.store
-
-# Lecturer pages
-GET		/lecturers					controllers.LecturersCtrl.all
-GET		/lecturers/$id<[0-9]>		controllers.LecturersCtrl.show(id: Long)
-POST	/lecturers					controllers.LecturersCtrl.store
+# User pages
+GET		/users                      controllers.UsersCtrl.all
+GET		/users/$id<[0-9]>           controllers.UsersCtrl.show(id: Long)
+POST	/users                      controllers.UsersCtrl.store
 
 # Course pages
 GET     /courses                    controllers.CoursesCtrl.all
@@ -35,7 +32,7 @@ GET     /courses/create             controllers.CoursesCtrl.create
 POST    /courses                    controllers.CoursesCtrl.store
 GET     /courses/edit               controllers.CoursesCtrl.edit
 PUT     /courses                    controllers.CoursesCtrl.update
-GET     /courses/:id                controllers.CoursesCtrl.show(id: Long)
+GET     /courses/:name              controllers.CoursesCtrl.show(name: String)
 
 # Submission pages
 # GET     /assignments                controllers.AssignmentsCtrl.all

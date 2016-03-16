@@ -4,7 +4,6 @@ import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
 import java.util.List;
 
 /**
@@ -25,9 +24,15 @@ public class Course extends Model {
 
     public String description;
 
+
+    public Course(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     @ManyToMany
     public List<User> participants;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<Assignment> assignments;
 }

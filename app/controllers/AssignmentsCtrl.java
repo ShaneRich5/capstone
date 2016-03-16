@@ -1,6 +1,8 @@
 package controllers;
 
+import com.google.inject.Inject;
 import models.Assignment;
+import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.assignments.*;
@@ -11,6 +13,9 @@ import java.util.List;
  * Created by shane on 3/15/16.
  */
 public class AssignmentsCtrl extends Controller {
+
+    @Inject
+    DynamicForm dynamicForm;
 
     public Result index() {
         List<Assignment> assignments = Assignment.find.all();

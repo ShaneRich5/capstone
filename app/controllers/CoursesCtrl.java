@@ -2,6 +2,7 @@ package controllers;
 
 import models.Course;
 import play.data.DynamicForm;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.courses.*;
@@ -15,10 +16,11 @@ import java.util.List;
 public class CoursesCtrl extends Controller {
 
     @Inject
-    DynamicForm dynamicForm;
+    FormFactory formFactory;
 
     public Result all() {
         List<Course> courses = Course.find.all();
+
         return ok(index.render(courses));
     }
 
@@ -27,13 +29,20 @@ public class CoursesCtrl extends Controller {
     }
 
     public Result store() {
-        dynamicForm.bindFromRequest();
-        return redirect("/");
+        DynamicForm requestData = formFactory.form().bindFromRequest();
+
+        final String name = requestData.get("name");
+        final String description = requestData.get("description");
+
+        Course course = new Course(name, description);
+        course.save();
+
+        return redirect("/courses");
     }
 
-    public Result show(long id) {
-
-        return ok("Show");
+    public Result show(String name) {
+        Course course = Course.find.where().eq("name", name).findUnique();
+        return ok(show.render(course));
     }
 
     public Result edit() {

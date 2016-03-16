@@ -1,6 +1,24 @@
-@(assignList: List[Course])
+@(courses: List[Course])
 
-@main("Assignments") {
+@main(title = "Assignments") {
 
+<div class="container">
+    <h1>Courses</h1>
+
+    @if(courses.isEmpty()) {
+        <p>No courses available</p>
+    } else {
+        <div class="list-group">
+            @for(course <- courses) {
+                <a href="/courses/@course.name" class="list-group-item">
+                    <h4 class="list-group-item-heading">@course.name</h4>
+                    <p class="list-group-item-text">@course.description</p>
+                </a>
+            }
+        </div>
+    }
+
+    <a href="/courses/create" class="btn btn-primary btn-block">Add Course</a>
+</div>
 
 }
