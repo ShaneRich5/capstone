@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Role;
+import models.User;
 import play.mvc.*;
 
 import views.html.pages.*;
@@ -14,7 +15,7 @@ public class PagesCtrl extends Controller {
 	public Result home() {
 
 		// load initial data
-		if (Role.find.findRowCount() == 0) {
+		if (0 == Role.find.findRowCount()) {
 
 			String[] names = new String[]{"student", "lecturer"};
 			String[] description = new String[]{
@@ -28,6 +29,7 @@ public class PagesCtrl extends Controller {
 			}
 		}
 
+		if (0 == User.find.findRowCount()) session().clear();
 
 		return ok(home.render());
 	}

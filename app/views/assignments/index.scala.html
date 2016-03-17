@@ -1,6 +1,17 @@
-@(assignmentList: List[Assignment])
+@(assignments: List[Assignment], course: Course)
 
 @main("Assignments") {
 
+    <div class="container">
+        <h1>Assignments</h1>
+
+        @if(0 == assignments.size()) {
+            <p>None posted</p>
+        } else {
+            <div class="list-group">
+                <a href="/courses/"></a>
+            </div>
+        }
+    </div>
 
 }

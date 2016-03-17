@@ -43,11 +43,17 @@ public class SessionsCtrl extends Controller {
 			return ok("Not found");
 
 		session("email", email);
+		session("id", user.id + "");
+		session("name", user.name);
+		session("role", user.role.name);
 
 		return ok(home.render());
 	}
 
 	public Result store() {
+
+		if(null != session().get("email"))
+			redirect("/");
 
 		DynamicForm requestData = formFactory.form().bindFromRequest();
 
@@ -73,6 +79,15 @@ public class SessionsCtrl extends Controller {
 		newUser.role = role;
 		newUser.save();
 
-		return ok("Saved new user");
+		session("email", email);
+		session("id", newUser.id + "");
+		session("name", newUser.name);
+
+		return redirect("/users");
+	}
+
+	public Result logout() {
+		session().clear();
+		return redirect("/");
 	}
 }

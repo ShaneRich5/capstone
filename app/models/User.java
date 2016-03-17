@@ -29,7 +29,7 @@ public class User extends Model {
 	/*
 		Relationships
 	 */
-	@OneToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	public Role role;
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -82,6 +82,11 @@ public class User extends Model {
 		return User.find.where().allEq(credentials ).findUnique();
 	}
 
+	public static User findByEmail(String email) {
+		return User.find.where()
+				.eq("email", email)
+				.findUnique();
+	}
 
 	@Override
 	public void save() {

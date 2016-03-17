@@ -5,9 +5,9 @@
 
 create table assignments (
   id                        bigint not null,
-  course_id                 bigint not null,
   description               varchar(255),
   lecturer_id               bigint,
+  course_id                 bigint,
   constraint pk_assignments primary key (id))
 ;
 
@@ -15,7 +15,9 @@ create table courses (
   id                        bigint not null,
   name                      varchar(255),
   description               varchar(255),
+  lecturer_id               bigint,
   constraint uq_courses_name unique (name),
+  constraint uq_courses_lecturer_id unique (lecturer_id),
   constraint pk_courses primary key (id))
 ;
 
@@ -44,7 +46,6 @@ create table users (
   remember_me               boolean,
   role_id                   bigint,
   constraint uq_users_email unique (email),
-  constraint uq_users_role_id unique (role_id),
   constraint pk_users primary key (id))
 ;
 
@@ -70,18 +71,20 @@ create sequence submissions_seq;
 
 create sequence users_seq;
 
-alter table assignments add constraint fk_assignments_courses_1 foreign key (course_id) references courses (id) on delete restrict on update restrict;
-create index ix_assignments_courses_1 on assignments (course_id);
-alter table assignments add constraint fk_assignments_lecturer_2 foreign key (lecturer_id) references users (id) on delete restrict on update restrict;
-create index ix_assignments_lecturer_2 on assignments (lecturer_id);
-alter table submissions add constraint fk_submissions_course_3 foreign key (course_id) references courses (id) on delete restrict on update restrict;
-create index ix_submissions_course_3 on submissions (course_id);
-alter table submissions add constraint fk_submissions_assignment_4 foreign key (assignment_id) references assignments (id) on delete restrict on update restrict;
-create index ix_submissions_assignment_4 on submissions (assignment_id);
-alter table submissions add constraint fk_submissions_student_5 foreign key (student_id) references users (id) on delete restrict on update restrict;
-create index ix_submissions_student_5 on submissions (student_id);
-alter table users add constraint fk_users_role_6 foreign key (role_id) references roles (id) on delete restrict on update restrict;
-create index ix_users_role_6 on users (role_id);
+alter table assignments add constraint fk_assignments_lecturer_1 foreign key (lecturer_id) references users (id) on delete restrict on update restrict;
+create index ix_assignments_lecturer_1 on assignments (lecturer_id);
+alter table assignments add constraint fk_assignments_course_2 foreign key (course_id) references courses (id) on delete restrict on update restrict;
+create index ix_assignments_course_2 on assignments (course_id);
+alter table courses add constraint fk_courses_lecturer_3 foreign key (lecturer_id) references users (id) on delete restrict on update restrict;
+create index ix_courses_lecturer_3 on courses (lecturer_id);
+alter table submissions add constraint fk_submissions_course_4 foreign key (course_id) references courses (id) on delete restrict on update restrict;
+create index ix_submissions_course_4 on submissions (course_id);
+alter table submissions add constraint fk_submissions_assignment_5 foreign key (assignment_id) references assignments (id) on delete restrict on update restrict;
+create index ix_submissions_assignment_5 on submissions (assignment_id);
+alter table submissions add constraint fk_submissions_student_6 foreign key (student_id) references users (id) on delete restrict on update restrict;
+create index ix_submissions_student_6 on submissions (student_id);
+alter table users add constraint fk_users_role_7 foreign key (role_id) references roles (id) on delete restrict on update restrict;
+create index ix_users_role_7 on users (role_id);
 
 
 

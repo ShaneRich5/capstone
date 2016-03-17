@@ -17,9 +17,9 @@ public class AssignmentsCtrl extends Controller {
     @Inject
     DynamicForm dynamicForm;
 
-    public Result index() {
+    public Result all() {
         List<Assignment> assignments = Assignment.find.all();
-        return ok(index.render(assignments));
+        return ok("<h1>Done</h1>");
     }
 
     public Result create() {

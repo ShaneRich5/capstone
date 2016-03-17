@@ -3,10 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by shane on 3/15/16.
@@ -28,12 +25,12 @@ public class Submission extends Model {
     /*
     Relationship
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     public Course course;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     public Assignment assignment;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     public User student;
 }

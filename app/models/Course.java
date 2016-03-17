@@ -24,15 +24,23 @@ public class Course extends Model {
 
     public String description;
 
-
-    public Course(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+    @OneToOne
+    public User lecturer;
 
     @ManyToMany
     public List<User> participants;
 
     @OneToMany(cascade = CascadeType.ALL)
     public List<Assignment> assignments;
+
+    public Course(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public static Course findByName(String name) {
+        return Course.find.where()
+                .eq("name", name)
+                .findUnique();
+    }
 }

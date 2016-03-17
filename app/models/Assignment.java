@@ -3,10 +3,8 @@ package models;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by shane on 3/15/16.
@@ -20,9 +18,17 @@ public class Assignment extends Model {
     @Id
     public Long id;
 
+    //public String name;
+
     @Constraints.Required
     public String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     public User lecturer;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    public Course course;
+
+    @OneToMany(mappedBy = "assignment")
+    public List<Submission> submissions;
 }

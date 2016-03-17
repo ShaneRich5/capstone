@@ -1,0 +1,14 @@
+@(user: User)
+
+@main(title = "Users") {
+
+    <div class="container">
+        @if(null == user) {
+            <p>Unable to load user</p>
+        } else {
+            <h1>@user.name <span class="small">@user.email</span></h1>
+            <p>Lorem ipsum</p>
+        }
+    </div>
+
+}

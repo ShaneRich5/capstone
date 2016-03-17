@@ -3,10 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by shane on 3/15/16.
@@ -29,7 +26,7 @@ public class Role extends Model {
     /*
         Relationships
      */
-    @OneToOne(mappedBy = "role")
+    @OneToMany(mappedBy = "role")
     public User user;
 
 }

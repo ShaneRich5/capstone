@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Course;
+import models.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -31,7 +32,7 @@ public class CoursesCtrl extends Controller {
     public Result store() {
         DynamicForm requestData = formFactory.form().bindFromRequest();
 
-        final String name = requestData.get("name");
+        final String name = requestData.get("name").toLowerCase();
         final String description = requestData.get("description");
 
         Course course = new Course(name, description);
@@ -41,8 +42,35 @@ public class CoursesCtrl extends Controller {
     }
 
     public Result show(String name) {
-        Course course = Course.find.where().eq("name", name).findUnique();
-        return ok(show.render(course));
+        Course course = Course.find.where()
+                .eq("name", name.toLowerCase())
+                .findUnique();
+
+        if (null == course) return redirect(routes.CoursesCtrl.all());
+
+        String email = session().get("email");
+
+        User currentUser = User.find.where()
+                .eq("email", email)
+                .findUnique();
+
+
+
+        return ok(show.render(course, currentUser));
+    }
+
+    public Result join(String name) {
+        String email = session().get("email");
+
+        if (null == email) return redirect(routes.CoursesCtrl.show(name));
+
+        Course course = Course.findByName(name);
+        User user = User.findByEmail(email);
+
+        course.participants.add(user);
+        course.save();
+
+        return redirect(routes.CoursesCtrl.show(name));
     }
 
     public Result edit() {

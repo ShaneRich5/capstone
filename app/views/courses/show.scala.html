@@ -1,13 +1,60 @@
-@(course: Course)
+@(course: Course, user: User)
 
 @main("Assignments") {
 
 <div class="container">
 
-    <h1>@course.name</h1>
+    <h1>
+        @course.name.toUpperCase()
+
+
+        @for(participant <- course.participants) {
+            @if(participant.role.name == "lecturer") {
+                <span class="small"> taught by<a href="users/@participant.id">@participant.name</a></span>
+            }
+        }
+
+    </h1>
 
     <p>@course.description</p>
 
+    <section>
+        <h2><a href="/courses/@course.name/assignments">Assignments</a></h2>
+
+        @if(0 == course.assignments.size()) {
+            <p>No assignments posted</p>
+        } else {
+            <div class="list-group">
+                @for(ass <- course.assignments) {
+                    <a href="/courses/@course.name/assignments/@ass.id" class="list-group-item">
+                        @ass.description
+                    </a>
+                }
+            </div>
+        }
+        @if(user != null && "lecturer" == user.role.name) {
+            <a href="/courses/@course.name/assignments/create" class="btn btn-primary">Create</a>
+        }
+    </section>
+
+
+    <section>
+        <h2>Participants</h2>
+
+        @if(0 == course.participants.size()) {
+            <p>No participants</p>
+        } else {
+            <ul class="list-group">
+                @for(participant <- course.participants) {
+                    <li class="list-group-item">@participant.name [@participant.role.name]</li>
+                }
+            </ul>
+        }
+    </section>
+
+    @if(user!= null && !course.participants.contains(user.name)) {
+        <a href="/courses/@course.name/join" class="btn btn-primary">Join</a>
+    }
 </div>
 
 }

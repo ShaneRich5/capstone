@@ -8,14 +8,16 @@
     @if(courses.isEmpty()) {
         <p>No courses available</p>
     } else {
+
         <div class="list-group">
             @for(course <- courses) {
-                <a href="/courses/@course.name" class="list-group-item">
-                    <h4 class="list-group-item-heading">@course.name</h4>
-                    <p class="list-group-item-text">@course.description</p>
+                <a href="/courses/@course.name.toLowerCase()" class="list-group-item">
+                    @course.name.toUpperCase()
+                    <span class="label label-default label-pill pull-xs-right">@course.participants.size()</span>
                 </a>
             }
         </div>
+
     }
 
     <a href="/courses/create" class="btn btn-primary btn-block">Add Course</a>
