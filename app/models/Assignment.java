@@ -18,7 +18,7 @@ public class Assignment extends Model {
     @Id
     public Long id;
 
-    //public String name;
+    public String name;
 
     @Constraints.Required
     public String description;
@@ -31,4 +31,9 @@ public class Assignment extends Model {
 
     @OneToMany(mappedBy = "assignment")
     public List<Submission> submissions;
+
+    public Assignment(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

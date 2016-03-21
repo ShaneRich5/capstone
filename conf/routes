@@ -20,6 +20,7 @@ GET		/login						controllers.SessionsCtrl.login
 GET		/register					controllers.SessionsCtrl.register
 POST    /login                      controllers.SessionsCtrl.authenticate
 POST    /register                   controllers.SessionsCtrl.store
+GET     /logout                     controllers.SessionsCtrl.logout
 
 # User pages
 GET		/users                      controllers.UsersCtrl.all(role ?= null)
@@ -36,20 +37,20 @@ GET     /courses/:name/join         controllers.CoursesCtrl.join(name: String)
 GET     /courses/:name              controllers.CoursesCtrl.show(name: String)
 
 # Assignment pages
-GET     /courses/:name/assignments          controllers.AssignmentsCtrl.all(String name)
-GET     /courses/:name/assignments/create   controllers.AssignmentsCtrl.create(String name)
-POST    /courses/:name/assignments          controllers.AssignmentsCtrl.store(String name)
-GET     /courses/:name/assignments/edit     controllers.AssignmentCtrl.edit
-PUT     /courses/:name/assignments          controllers.AssignmentCtrl.update
-GET     /courses/:name/assignments/:id      controllers.AssignmentCtrl.show(id: Long)
+GET     /courses/:name/assignments          controllers.AssignmentsCtrl.all(name)
+GET     /courses/:name/assignments/create   controllers.AssignmentsCtrl.create(name)
+POST    /courses/:name/assignments          controllers.AssignmentsCtrl.store(name)
+GET     /courses/:name/assignments/edit     controllers.AssignmentsCtrl.edit(name)
+PUT     /courses/:name/assignments          controllers.AssignmentsCtrl.update(name)
+GET     /courses/:name/assignments/:id      controllers.AssignmentsCtrl.show(name, id: Long)
 
 # Submission pages
-GET     /courses/:name/assignments/:id/submissions          controllers.
-GET     /courses/:name/assignments/:id/submissions/create   controllers.
-POST    /courses/:name/assignments/:id/submissions          controllers.
-GET     /courses/:name/assignments/:id/submissions/edit     controllers.
-GET     /courses/:name/assignments/:id/submissions
-GET     /courses/:name/assignments/:id/submissions/
+GET     /courses/:name/assignments/:courseId/submissions            controllers.SubmissionsCtrl.all(name, courseId: Long)
+GET     /courses/:name/assignments/:courseId/submissions/create     controllers.SubmissionsCtrl.create(name, courseId: Long)
+POST    /courses/:name/assignments/:courseId/submissions            controllers.SubmissionsCtrl.store(name, courseId: Long)
+GET     /courses/:name/assignments/:courseId/submissions/edit       controllers.SubmissionsCtrl.edit(name, courseId: Long)
+PUT     /courses/:name/assignments/:courseId/submissions            controllers.SubmissionsCtrl.update(name, courseId: Long)
+GET     /courses/:name/assignments/:courseId/submissions/:id        controllers.SubmissionsCtrl.show(name, courseId: Long, id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

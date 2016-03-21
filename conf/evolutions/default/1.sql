@@ -5,6 +5,7 @@
 
 create table assignments (
   id                        bigint not null,
+  name                      varchar(255),
   description               varchar(255),
   lecturer_id               bigint,
   course_id                 bigint,
