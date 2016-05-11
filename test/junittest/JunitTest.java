@@ -5,9 +5,8 @@
  */
 package junittest;
 
-import junittest.lecturer.Lecturer;
-import junittest.student.Student;
-import junittest.student.mathematics;
+import junittest.lecturer.*;
+import junittest.student.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.List;
@@ -66,8 +65,8 @@ public class JunitTest {
         grade = grade + 1;
     
     }
-    @Test
     
+    @Test
     public void test5(){
         assertEquals(student.getList(),list);
         grade = grade + 1;

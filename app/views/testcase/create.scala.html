@@ -1,0 +1,29 @@
+
+
+@main("Testcase") {
+
+<div class="container">
+
+    <h1>Enter test cases</h1>
+
+    <form role="form" method="POST" id="test" action="/Testcase">
+    	<div class="form-group">
+            <label for="Aname">Marksheet Name </label>
+            <input type="text" class="form-control" id="Aname" name="Aname">
+        </div>
+
+        <div class="form-group">
+            <label for="mark"> Overall Mark</label>
+            <input type="text" class="form-control" id="mark" name="mark">
+        </div>
+        
+        <div class="form-group">
+            <label for="testcase">Enter testcases</label>
+            <textarea class="form-control" rows="20" id="testcase" name="testcase"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+}

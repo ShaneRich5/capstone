@@ -52,5 +52,9 @@ GET     /courses/:name/assignments/:courseId/submissions/edit       controllers.
 PUT     /courses/:name/assignments/:courseId/submissions            controllers.SubmissionsCtrl.update(name, courseId: Long)
 GET     /courses/:name/assignments/:courseId/submissions/:id        controllers.SubmissionsCtrl.show(name, courseId: Long, id: Long)
 
+#Testcase pages
+GET		/Testcase                  controllers.TestController.show
+POST 	/Testcase                  controllers.TestController.addtest
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
