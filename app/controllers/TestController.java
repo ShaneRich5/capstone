@@ -11,13 +11,16 @@ import views.html.testcase.*;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.io.File;
+import java.io.*;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 public class TestController extends Controller {
+	
+    
 
 	@Inject
 	FormFactory formFactory;
@@ -32,11 +35,16 @@ public Result addtest(){
 	final String testcase = requestData.get("testcase");
 	final String assignmentName = requestData.get("Aname");
 	final String overallMark = requestData.get("mark");
-    
+	final String instanceofClass = requestData.get("class");
+	String currentline;
+	String line = "";
+	String grade = "";
+	int count = 0;
+	
 	
 	try{
-		File myFile = new File("Junittest.java");
-		FileWriter fWriter = new FileWriter(myFile,false);
+		FileWriter fWriter = new FileWriter(new File(".").getAbsolutePath() + "//test//junittest//JunitTest.java",false);
+		FileWriter fw = new FileWriter(new File(".").getAbsolutePath() + "//test//junittest//text.txt", false);
 
 		fWriter.write("package junittest; " + "\n" + "import junittest.lecturer.*;"+ 
 					 "\n" + "import junittest.student.*;" + 
@@ -47,11 +55,32 @@ public Result addtest(){
 		fWriter.write("\n" + "public class JunitTest {" + "\n"+ 
 					  "public static int grade = 0;" + "\n" +
 					  "public double mark = "+ overallMark + ";"+"\n" +
-					  "public String name = " + '"'+ assignmentName + '"'+ ";"+"\n");
+					  "public String name = " + '"'+ assignmentName + '"'+ ";"+ "\n" +
+					   instanceofClass + "\n");
 		
-		fWriter.write(testcase  + "\n");
+		fw.write(testcase  + "\n");
+		fw.close();
 		
-		fWriter.write("\n" + "//Method to compare integers" + "\n" 
+	
+		BufferedReader br = new BufferedReader(new FileReader(new File(".").getAbsolutePath() + "//test//junittest//text.txt"));
+		while((currentline = br.readLine()) != null){
+			
+			currentline = currentline.trim();
+
+			if (currentline.equals("test")){
+				line  = line  + "\n"+" @Test" + "\n" + 
+						"public void test" + Integer.toString(count) + "(){" + "\n"+ br.readLine() +";" + "\n"+ "grade = grade + " + br.readLine()+";"+"\n" + "}" + "\n" + "\n";
+						fWriter.write(line+ "\n");
+						count = count + 1;
+						line = "";
+                 }
+
+             }
+		
+		br.close();
+
+		
+        fWriter.write("\n" + "//Method to compare integers" + "\n" 
 			          + "public void compareInt(int a, int b){ assertEquals(a,b); }" + "\n");
 
 		fWriter.write("\n" + "//Method to compare strings" + "\n" 
@@ -72,6 +101,8 @@ public Result addtest(){
 
 		fWriter.write("\n" + "}");
 		fWriter.close();
+		
+		
 
 	}
 	catch(IOException io){

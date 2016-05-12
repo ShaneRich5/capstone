@@ -1,0 +1,19 @@
+test
+compareInt(lec.getGradeAvg(10,10),student.getGradeAvg(10,10))
+1
+
+test
+compareInt(lec.getAddition(10,10), student.getAddition(10,10))
+1
+
+test
+compareInt(lec.Multiply(3,4),math.Multiply(3,4))
+1
+
+test
+compareInt(lec.divide(12,4), math.divide(12,4))
+1
+
+
+
+
