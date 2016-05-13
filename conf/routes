@@ -55,7 +55,8 @@ GET     /courses/:name/assignments/:courseId/submissions/:id        controllers.
 #Testcase pages
 GET		/Testcase                  controllers.TestController.show
 POST 	/Testcase                  controllers.TestController.addtest
-
+GET     /upload                    controllers.TestController.upload
+POST    /upload                    controllers.TestController.addFiles
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

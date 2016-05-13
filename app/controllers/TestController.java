@@ -2,10 +2,12 @@ package controllers;
 
 import models.Assignment;
 import models.User;
+import play.data.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
+
 import play.mvc.Result;
 import views.html.testcase.*;
 
@@ -17,6 +19,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 public class TestController extends Controller {
 	
@@ -28,6 +31,28 @@ public class TestController extends Controller {
 public Result show(){
 	return ok(create.render());
 
+}
+
+public Result upload(){
+	return ok(testcase.render());
+
+}
+
+public Result addFiles(){
+		Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> program = body.getFile("assignFile");
+	
+			if(program.getFilename().toLowerCase().endsWith(".java")){
+				String filename = program.getFilename();
+				File file = program.getFile();
+				file.renameTo(new File (new File(".").getAbsolutePath() + "//test//junittest//student//", filename));
+				return ok("success");
+			}
+			else{
+
+				return ok("Files cannot be uploaded");
+			}
+		
 }
 
 public Result addtest(){
