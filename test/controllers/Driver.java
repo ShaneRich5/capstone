@@ -30,9 +30,10 @@ public class Driver {
          
         Result result = JUnitCore.runClasses(JunitTest.class);
         Object obj = JunitTest.class.newInstance();
+        String failed = "";
          try{
           for(Failure failure : result.getFailures()){
-              System.out.println(failure.toString());
+            failed = failed + "Test Failed: " + failure.toString() + "\n";
             }
           System.out.println(result.wasSuccessful());
           Method method = JunitTest.class.getMethod("grade");
@@ -40,6 +41,7 @@ public class Driver {
           Method method3 = JunitTest.class.getMethod("getName");
           System.out.println("Final grade: " + method.invoke(obj));
           System.out.println("Percentage: " + method2.invoke(obj));
+          System.out.println(failed);
           
             try{
                File file = new File(method3.invoke(obj) + ".txt");

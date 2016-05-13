@@ -12,7 +12,7 @@ public class Student {
    } 
    
    public int getGradeAvg(int a, int b){
-        int x = (a + b)/2;
+        int x = (a - b)/2;
         return x;
    
    }
