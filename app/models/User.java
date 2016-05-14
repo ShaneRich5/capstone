@@ -16,22 +16,19 @@ public class User extends Model {
 	@Id
 	@Constraints.Required
 	@Column(unique = true)
-	public long id;
+    public String idNum;
 
 	public String name;
 
 	public String email;
 
-	public String idNum;
 
-	@Constraints.Required
-	public String password;
 
 	public boolean rememberMe;
 
 	/*
-		Relationships
-	 */
+            Relationships
+         */
 	@ManyToOne(cascade = CascadeType.ALL)
 	public Role role;
 
@@ -46,11 +43,10 @@ public class User extends Model {
 
 	public User() {}
 
-	public User(String idNum,String name, String email, String password) {
+	public User(String idNum,String name, String email) {
 		this.idNum = idNum;
 		this.name = name;
 		this.email = email;
-		this.password = password;
 	}
 
 	public String getIdNum() {
@@ -74,17 +70,19 @@ public class User extends Model {
 		return email;
 	}
 
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPassword() {
-		return password;
-	}
 
 	public List<Course> getCourses() {
 		return courses;

@@ -10,7 +10,7 @@
 
         @for(participant <- course.participants) {
             @if(participant.role.name == "lecturer") {
-                <span class="small"> taught by<a href="users/@participant.id">@participant.name</a></span>
+                <span class="small"> taught by<a href="users/@participant.getIdNum()">@participant.name</a></span>
             }
         }
 

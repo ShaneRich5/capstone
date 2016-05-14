@@ -46,7 +46,7 @@ public class OurvleConnector {
 
     public User authenticate(String id, String password)
     {
-        User returnUser = new User(id,"","",password);
+        User returnUser = new User(id,"","");
 
         final CompletionStage<List<WSCookie>> response =
                 WS.url("http://ourvle.mona.uwi.edu/login/index.php?authldap_skipntlmsso=1").setFollowRedirects(true).setHeader("Upgrade-Insecure-Requests","1")

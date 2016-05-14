@@ -14,18 +14,21 @@ public class Authenticator {
         Map<String , Object> credentials = new HashMap<String , Object>();
 
         credentials .put("idNum", idNum);
-        credentials .put("password", password);
         User returnUser = User.find.where().allEq(credentials).findUnique();
-        if(returnUser == null || returnUser.role.equals(Role.find.where().eq("name","Student"))) {
-            returnUser = new OurvleConnector().authenticate(idNum, password);
-            if(returnUser != null) {
-                returnUser.role = Role.find.where().eq("name","Student").findUnique();
-                if(User.find.where().eq("idNum",returnUser.getIdNum()).findUnique() != null)
-                    returnUser.update();
-                else
-                    returnUser.save();
-            }
+        User OurvleUser = new OurvleConnector().authenticate(idNum, password);
+        if(OurvleUser == null)
+            return null;
+        if(returnUser == null)
+        {
+            OurvleUser.setRole(Role.find.where().eq("name","Student").findUnique());
+            OurvleUser.save();
+            return OurvleUser;
+        }else
+        {
+            OurvleUser.setRole(returnUser.getRole());
+            OurvleUser.update();
+            return OurvleUser;
         }
-        return returnUser;
+
     }
 }

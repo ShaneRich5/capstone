@@ -75,13 +75,13 @@ public class SessionsCtrl extends Controller {
 				.eq("name", (student == null) ? "lecturer" : "student")
 				.findUnique();
 
-		User newUser = new User(idNum,name, email, password);
+		User newUser = new User(idNum,name, email);
 
 		newUser.role = role;
 		newUser.save();
 
 		session("email", email);
-		session("id", newUser.id + "");
+		session("id", newUser.getIdNum() + "");
 		session("name", newUser.name);
 
 		return redirect("/users");

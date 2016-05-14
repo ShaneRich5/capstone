@@ -15,16 +15,32 @@ public class Global extends GlobalSettings {
         }
         if(Course.find.findRowCount() == 0)
         {
-            new Course("Systems Programming","","COMP2130");
-            new Course("Information Security & Assurance","","INFO3155");
-            new Course("Internship in Computing","","COMP3911");
-            new Course("Group Project","","COMP3901");
-            new Course("Database Management Systems","","COMP3161");
-            new Course("Theory of Computation","","COMP3702");
-            new Course("Modern Communication Systems","","ELET2480");
+            new Course("Systems Programming","","COMP2130").save();
+            new Course("Information Security & Assurance","","INFO3155").save();
+            new Course("Internship in Computing","","COMP3911").save();
+            new Course("Group Project","","COMP3901").save();
+            new Course("Database Management Systems","","COMP3161").save();
+            new Course("Theory of Computation","","COMP3702").save();
+            new Course("Modern Communication Systems","","ELET2480").save();
+            String[] admins = {"620063216"};
+            for(String admin: admins)
+            {
+                User u = new User(admin,null,null);
+                User dbU = User.find.where().eq("idNum",admin).findUnique();
+                Role adminRole = Role.find.where().eq("name","Administrator").findUnique();
+                if(dbU != null)
+                {
+                    dbU.setRole(adminRole);
+                    dbU.update();
+                }else
+                {
+                    u.setRole(adminRole);
+                    u.save();
+                }
+            }
         }
 //        if(User.find.findRowCount() > 0) {
-//            List<User> users = User.find.where().eq("role",Role.find.where().eq("id",3)).findList();
+//            List<User> users = User.find.findList();
 //            users.forEach(Model::delete);
 //        }
     }

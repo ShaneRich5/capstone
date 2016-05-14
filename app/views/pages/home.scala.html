@@ -1,6 +1,20 @@
 @main("Home") {
-	
-	<h1>Home</h1>
-	<p>Welcome to our Capstone Application </p>
-
+    @if(session.get("role") == null) {
+        <h1>Home</h1>
+        <p>Welcome to Computing Dept. Autograder</p>
+    }else {
+        @System.out.println(session.get("role"));
+        @if(session.get("role").equals("Administrator")) {
+                <h1>Home</h1>
+                <p>Admin</p>
+        }
+        @if(session.get("role").equals("Lecturer")) {
+                <h1>Home</h1>
+                <p>Lecturer</p>
+        }
+        @if(session.get("role").equals("Student")) {
+                <h1>Home</h1>
+                <p>Student</p>
+        }
+    }
 }
