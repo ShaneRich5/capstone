@@ -13,22 +13,6 @@ import views.html.pages.*;
 public class PagesCtrl extends Controller {
 
 	public Result home() {
-
-		// load initial data
-		if (0 == Role.find.findRowCount()) {
-
-			String[] names = new String[]{"student", "lecturer"};
-			String[] description = new String[]{
-					"Submits assigments", "Creates assignments"};
-
-			for (int i = 0; i < 2; i++) {
-				Role role = new Role();
-				role.name = names[i];
-				role.description = description[i];
-				role.save();
-			}
-		}
-
 		if (0 == User.find.findRowCount()) session().clear();
 
 		return ok(home.render());

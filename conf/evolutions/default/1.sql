@@ -16,6 +16,7 @@ create table courses (
   id                        bigint not null,
   name                      varchar(255),
   description               varchar(255),
+  code                      varchar(255),
   lecturer_id               bigint,
   constraint uq_courses_name unique (name),
   constraint uq_courses_lecturer_id unique (lecturer_id),
@@ -23,7 +24,7 @@ create table courses (
 ;
 
 create table roles (
-  id                        bigint not null,
+  id                        integer not null,
   name                      varchar(255),
   description               varchar(255),
   constraint pk_roles primary key (id))
@@ -43,10 +44,10 @@ create table users (
   id                        bigint not null,
   name                      varchar(255),
   email                     varchar(255),
+  id_num                    varchar(255),
   password                  varchar(255),
   remember_me               boolean,
-  role_id                   bigint,
-  constraint uq_users_email unique (email),
+  role_id                   integer,
   constraint pk_users primary key (id))
 ;
 

@@ -21,3 +21,5 @@ javaOptions in Test ++= Seq(
 )
 
 //libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.36"
+libraryDependencies += "org.jsoup" % "jsoup" % "1.7.2"
+libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.1"

@@ -5,21 +5,24 @@ import javax.persistence.*;
 
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
+import services.OurvleConnector;
 
 @Entity
 @Table(name = "users")
 public class User extends Model {
 
-	public static Finder<Long, User> find = new Finder<>(User.class);
+	public static Finder<Long, User> find = new Finder<Long, User>(User.class);
 
 	@Id
+	@Constraints.Required
+	@Column(unique = true)
 	public long id;
 
 	public String name;
 
-	@Column(unique = true)
-	@Constraints.Required
 	public String email;
+
+	public String idNum;
 
 	@Constraints.Required
 	public String password;
@@ -43,11 +46,20 @@ public class User extends Model {
 
 	public User() {}
 
-	public User(String name, String email, String password) {
+	public User(String idNum,String name, String email, String password) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
+
+	public String getIdNum() {
+		return idNum;
+	}
+
+	public void setIdNum(String idNum) {
+		this.idNum = idNum;
+	}
+
 
 	public String getName() {
 		return name;
@@ -73,13 +85,30 @@ public class User extends Model {
 		return password;
 	}
 
-	public static User authenticate(String email, String password) {
-		Map<String , Object> credentials = new HashMap<>();
+	public List<Course> getCourses() {
+		return courses;
+	}
 
-		credentials .put("email", email);
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
+
+	public static User authenticate(String idNum, String password) {
+		Map<String , Object> credentials = new HashMap<String , Object>();
+
+		credentials .put("idNum", idNum);
 		credentials .put("password", password);
+		User returnUser = User.find.where().allEq(credentials).findUnique();
+		if(returnUser == null) {
+			returnUser = new OurvleConnector().authenticate(idNum, password);
+			if(returnUser != null) {
+				returnUser.role = Role.find.where().eq("name","Student").findUnique();
+				returnUser.save();
+			}
+		}
 
-		return User.find.where().allEq(credentials ).findUnique();
+		return returnUser;
 	}
 
 	public static User findByEmail(String email) {

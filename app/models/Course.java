@@ -5,6 +5,7 @@ import play.data.validation.Constraints;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by shane on 3/15/16.
@@ -13,7 +14,7 @@ import java.util.List;
 @Table(name = "courses")
 public class Course extends Model {
 
-    public static Finder<Long, Course> find = new Finder<>(Course.class);
+    public static Finder<Long, Course> find = new Finder<Long, Course>(Course.class);
 
     @Id
     public Long id;
@@ -24,6 +25,8 @@ public class Course extends Model {
 
     public String description;
 
+    public String code;
+
     @OneToOne
     public User lecturer;
 
@@ -33,14 +36,25 @@ public class Course extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     public List<Assignment> assignments;
 
-    public Course(String name, String description) {
+    public Course(String name, String description, String code) {
         this.name = name;
         this.description = description;
+        this.code = code;
+    }
+
+    public static String codeFromName(String name)
+    {
+        return name.substring(8);
     }
 
     public static Course findByName(String name) {
         return Course.find.where()
                 .eq("name", name)
+                .findUnique();
+    }
+    public static Course findByCode(String code) {
+        return Course.find.where()
+                .eq("code", code)
                 .findUnique();
     }
 }

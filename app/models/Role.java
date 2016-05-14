@@ -11,11 +11,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "roles")
 public class Role extends Model {
-
-    public static Finder<Long, Role> find = new Finder<>(Role.class);
+    public static Finder<Long, Role> find = new Finder<Long, Role>(Role.class);
 
     @Id
-    public Long id;
+    public int id;
 
     @Constraints.Required
     public String name;
@@ -28,5 +27,12 @@ public class Role extends Model {
      */
     @OneToMany(mappedBy = "role")
     public User user;
+
+    public Role(int id, String name, String description)
+    {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 
 }

@@ -16,13 +16,13 @@ public class SessionsCtrl extends Controller {
 	FormFactory formFactory;
 
 	public Result login() {
-		String email = session("email");
+		String id = session("id");
 
-		if (null != email)
-			ok ("Already logged in");
+		if (null != id)
+			return ok ("Already logged in");
 
-		return ok(login.render());
-	}
+        return ok(login.render());
+    }
 
 	public Result register() {
 		return ok(register.render());
@@ -33,16 +33,15 @@ public class SessionsCtrl extends Controller {
 
 		if (requestData.data().size() == 0) return badRequest("Expecting data");
 
-		final String email = requestData.get("email");
+		final String id = requestData.get("id");
 		final String password = requestData.get("password");
 		final String rememberMe = requestData.get("remember");
 
-		User user = User.authenticate(email, password);
+		User user = User.authenticate(id, password);
 
 		if (null == user)
 			return ok("Not found");
 
-		session("email", email);
 		session("id", user.id + "");
 		session("name", user.name);
 		session("role", user.role.name);
@@ -59,6 +58,7 @@ public class SessionsCtrl extends Controller {
 
 		if (requestData.data().size() == 0) return badRequest("Expecting data");
 
+		final String idNum = requestData.data().get("id");
 		final String name = requestData.data().get("name");
 		final String email = requestData.data().get("email");
 		final String password = requestData.data().get("password");
@@ -74,7 +74,7 @@ public class SessionsCtrl extends Controller {
 				.eq("name", (student == null) ? "lecturer" : "student")
 				.findUnique();
 
-		User newUser = new User(name, email, password);
+		User newUser = new User(idNum,name, email, password);
 
 		newUser.role = role;
 		newUser.save();

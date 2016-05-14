@@ -35,7 +35,7 @@ public class CoursesCtrl extends Controller {
         final String name = requestData.get("name").toLowerCase();
         final String description = requestData.get("description");
 
-        Course course = new Course(name, description);
+        Course course = new Course(name, description,Course.codeFromName(name));
         course.save();
 
         return redirect("/courses");
