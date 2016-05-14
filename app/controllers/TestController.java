@@ -57,15 +57,20 @@ public Result addFiles(){
 
 public Result addtest(){
 	DynamicForm requestData = formFactory.form().bindFromRequest();
+	
+	final String choice = requestData.get("choice");
 	final String testcase = requestData.get("testcase");
 	final String assignmentName = requestData.get("Aname");
 	final String overallMark = requestData.get("mark");
 	final String instanceofClass = requestData.get("class");
+	
 	String currentline;
 	String line = "";
 	String grade = "";
 	int count = 0;
 	
+	
+	if(choice.equals("java")){
 	
 	try{
 		FileWriter fWriter = new FileWriter(new File(".").getAbsolutePath() + "//test//junittest//JunitTest.java",false);
@@ -134,6 +139,71 @@ public Result addtest(){
 		io.getMessage();
 
 	}
+}
+
+else if(choice.equals("python")){
+	try{
+		FileWriter fWriter = new FileWriter(new File(".").getAbsolutePath() + "//test//pyunittest//PyunitTest.py",false);
+		FileWriter fw = new FileWriter(new File(".").getAbsolutePath() + "//test//pyunittest//text2.txt", false);
+
+		fw.write(testcase  + "\n");
+		fw.close();
+
+		fWriter.write("import unittest");
+
+        
+        for(String retval: instanceofClass.split("; ")){
+			fWriter.write("\n" +"import pyunittest.student." + retval + "\n");
+
+
+	    }
+
+	    fWriter.write("\n" + "class Tester(unittest.TestCase):" + "\n" + "\n");
+	    fWriter.write("\n" + "   grade = 0;" + "\n" +
+					         "   mark = "+ overallMark +"\n" +
+					         "   name = " + '"'+ assignmentName + '"'+ "\n");
+	    
+	    fWriter.write("    def setUp(self):" + "\n" +
+	    		      "        pass" );
+
+	    
+
+	    BufferedReader br = new BufferedReader(new FileReader(new File(".").getAbsolutePath() + "//test//junittest//text2.txt"));
+		while((currentline = br.readLine()) != null){
+			
+			currentline = currentline.trim();
+
+			if (currentline.equals("test")){
+				line  = line  + "\n" + "def test" + Integer.toString(count) + "(self):" + "\n"+ " "+ br.readLine() + "\n"+ "  grade = grade + " + br.readLine()+"\n" + "\n" + "\n";
+						fWriter.write(line+ "\n");
+						count = count + 1;
+						line = "";
+                 }
+
+             }
+		
+		br.close();
+
+		fWriter.write("\n" + "# Method to compare integers" + "\n" 
+			          + "def compareInt(a, b):" + "\n"+ 
+			            "    self.assertEquals(a,b)" + "\n");
+
+
+		fWriter.write("\n" + "\n" +"if __name__ == '__main__':" + "\n" +
+	    				     "    unittest.main()");
+	    fWriter.close();
+
+
+	}
+	catch(IOException io){
+		io.getMessage();
+
+	}
+
+
+
+}
   return ok("Success");
 }
+
 }
