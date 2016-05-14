@@ -5,6 +5,7 @@ import models.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.*;
+import services.Authenticator;
 import views.html.pages.home;
 import views.html.sessions.*;
 
@@ -37,13 +38,13 @@ public class SessionsCtrl extends Controller {
 		final String password = requestData.get("password");
 		final String rememberMe = requestData.get("remember");
 
-		User user = User.authenticate(id, password);
+		User user = new Authenticator().authenticate(id, password);
 
 		if (null == user)
 			return ok("Not found");
 
-		session("id", user.id + "");
-		session("name", user.name);
+		session("id", user.getIdNum());
+		session("name", user.getName());
 		session("role", user.role.name);
 
 		return ok(home.render());
@@ -88,6 +89,6 @@ public class SessionsCtrl extends Controller {
 
 	public Result logout() {
 		session().clear();
-		return redirect("/");
+		return redirect("/login");
 	}
 }

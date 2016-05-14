@@ -47,6 +47,7 @@ public class User extends Model {
 	public User() {}
 
 	public User(String idNum,String name, String email, String password) {
+		this.idNum = idNum;
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -94,22 +95,24 @@ public class User extends Model {
 	}
 
 
-	public static User authenticate(String idNum, String password) {
-		Map<String , Object> credentials = new HashMap<String , Object>();
-
-		credentials .put("idNum", idNum);
-		credentials .put("password", password);
-		User returnUser = User.find.where().allEq(credentials).findUnique();
-		if(returnUser == null) {
-			returnUser = new OurvleConnector().authenticate(idNum, password);
-			if(returnUser != null) {
-				returnUser.role = Role.find.where().eq("name","Student").findUnique();
-				returnUser.save();
-			}
-		}
-
-		return returnUser;
-	}
+//	public static User authenticate(String idNum, String password) {
+//		Map<String , Object> credentials = new HashMap<String , Object>();
+//
+//		credentials .put("idNum", idNum);
+//		credentials .put("password", password);
+//		User returnUser = User.find.where().allEq(credentials).findUnique();
+//		if(returnUser == null || returnUser.role.equals(Role.find.where().eq("name","Student"))) {
+//			returnUser = OurvleConnector.authenticate(idNum, password);
+//			if(returnUser != null) {
+//				returnUser.role = Role.find.where().eq("name","Student").findUnique();
+//				if(User.find.where().eq("idNum",returnUser.getIdNum()).findUnique() != null)
+//					returnUser.update();
+//				else
+//					returnUser.save();
+//			}
+//		}
+//		return returnUser;
+//	}
 
 	public static User findByEmail(String email) {
 		return User.find.where()
