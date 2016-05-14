@@ -159,21 +159,21 @@ else if(choice.equals("python")){
 	    }
 
 	    fWriter.write("\n" + "class Tester(unittest.TestCase):" + "\n" + "\n");
-	    fWriter.write("\n" + "   mark = "+ overallMark +"\n" +
-					         "   name = " + '"'+ assignmentName + '"'+ "\n");
+	    fWriter.write("\n" + "    mark = "+ overallMark +"\n" +
+					         "    name = " + '"'+ assignmentName + '"'+ "\n");
 	    
 	    fWriter.write("    def setUp(self):" + "\n" +
-	    		      "        pass" );
+	    		      "        pass" + "\n");
 
 	    
 
-	    BufferedReader br = new BufferedReader(new FileReader(new File(".").getAbsolutePath() + "//test//junittest//text2.txt"));
+	    BufferedReader br = new BufferedReader(new FileReader(new File(".").getAbsolutePath() + "//test//pyunittest//text2.txt"));
 		while((currentline = br.readLine()) != null){
 			
 			currentline = currentline.trim();
 
 			if (currentline.equals("test")){
-				line  = line  + "\n" + "def test" + Integer.toString(count) + "(self):" + "\n"+ " "+ br.readLine() + "\n"+ " grade(" + br.readLine() + ")" + "\n" ;
+				line  = line  + "\n" + "   def test" + Integer.toString(count) + "(self):" + "\n"+ "       "+ br.readLine() + "\n"+ "       grade(" + br.readLine() + ")" + "\n" ;
 						fWriter.write(line+ "\n");
 						count = count + 1;
 						line = "";
@@ -183,13 +183,13 @@ else if(choice.equals("python")){
 		
 		br.close();
 
-		fWriter.write("\n" + "# Method to compare integers" + "\n" 
-			          + "def compareInt(a, b):" + "\n"+ 
-			            "    self.assertEquals(a,b)" + "\n");
+		fWriter.write("\n" + "     # Method to compare integers" + "\n" 
+			          + "   def compareInt(a, b):" + "\n"+ 
+			            "         self.assertEquals(a,b)" + "\n");
 
-		fWriter.write("\n" + "# Method to count grade" + "\n" 
-			          + "def grade(x):" + "\n"+ 
-			            "    grade.counter += x " + "\n");
+		fWriter.write("\n" + "     # Method to count grade" + "\n" 
+			          + "   def grade(x):" + "\n"+ 
+			            "        grade.counter += x " + "\n");
 
 
 

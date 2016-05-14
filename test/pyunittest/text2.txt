@@ -1,0 +1,7 @@
+test
+compareInt()
+1
+
+test
+compareInt()
+1
