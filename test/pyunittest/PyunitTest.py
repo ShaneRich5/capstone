@@ -21,7 +21,7 @@ class Tester(unittest.TestCase):
 
     def test0(self):
        global grade
-       self.assertEqual(2,student.count.multiply(1,2))
+       self.assertEqual(4,student.count.multiply(1,2))
        grade = grade +(foo() *1)
        print(str(grade))       
 

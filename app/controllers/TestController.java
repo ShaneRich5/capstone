@@ -67,7 +67,11 @@ public Result addFiles(){
 
 public Result result(){
 	String cmdline = "";
-	String[] postAction = null;//request().body().asFormUrlEncode().get("action");
+
+	
+
+	String[] postAction = request().body().asFormUrlEncoded().get("action");
+
 	if(postAction == null || postAction.length == 0){
 		return ok("Check yourself");
 
@@ -77,7 +81,7 @@ public Result result(){
 		if("grader".equals(action)){
 			
 			try{
-				ProcessBuilder pb = new ProcessBuilder("activator test");
+				ProcessBuilder pb = new ProcessBuilder(new File(".").getAbsolutePath() + "activator test");
 				pb.directory(new File(new File(".").getAbsolutePath()));
 				pb.inheritIO();
 				Process p = pb.start();
@@ -92,13 +96,12 @@ public Result result(){
 			catch(Exception e){
 				e.printStackTrace();
 			}
-			return ok(cmdline);
+			
 		}
-
-	 }
+		return ok(cmdline);
+    }
  
 
-	return null;
 }
 
 public Result addtest(){
