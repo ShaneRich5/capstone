@@ -46,7 +46,7 @@ public class Course extends Model {
 
     public static String codeFromName(String name)
     {
-        return name.substring(8);
+        return name.substring(0,8);
     }
 
     public static Course findByName(String name) {
