@@ -67,7 +67,7 @@ public Result addFiles(){
 
 public Result result(){
 	String cmdline = "";
-	String[] postAction = request().body().asFormUrlEncode().get("action");
+	String[] postAction = null;//request().body().asFormUrlEncode().get("action");
 	if(postAction == null || postAction.length == 0){
 		return ok("Check yourself");
 
@@ -98,7 +98,7 @@ public Result result(){
 	 }
  
 
-
+	return null;
 }
 
 public Result addtest(){
