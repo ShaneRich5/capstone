@@ -81,7 +81,7 @@ public Result result(){
 		if("grader".equals(action)){
 			
 			try{
-				ProcessBuilder pb = new ProcessBuilder("activator test");
+				ProcessBuilder pb = new ProcessBuilder(new File(".").getAbsolutePath() + "activator test");
 				pb.directory(new File(new File(".").getAbsolutePath()));
 				pb.inheritIO();
 				Process p = pb.start();
