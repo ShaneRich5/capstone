@@ -4,17 +4,19 @@ import models.Role;
 import models.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
+import play.libs.ws.WSClient;
 import play.mvc.*;
 import services.Authenticator;
 import views.html.pages.home;
 import views.html.sessions.*;
+import views.html.sessions.login;
 
 import javax.inject.Inject;
 
 public class SessionsCtrl extends Controller {
 
-	@Inject
-	FormFactory formFactory;
+	@Inject FormFactory formFactory;
+	@Inject WSClient wsClient;
 
 	public Result login() {
 		String id = session("id");
