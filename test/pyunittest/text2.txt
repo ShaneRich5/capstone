@@ -1,7 +1,7 @@
 test
-compareInt()
+2;count.multiply(1,2)
 1
 
 test
-compareInt()
+2;count.addition(1,1)
 1

@@ -48,6 +48,16 @@ public Result addFiles(){
 				file.renameTo(new File (new File(".").getAbsolutePath() + "//test//junittest//student//", filename));
 				return ok("success");
 			}
+			
+			else if(program.getFilename().toLowerCase().endsWith(".py")){
+				String filename = program.getFilename();
+				File file = program.getFile();
+				file.renameTo(new File(new File(".").getAbsolutePath() + "//test//pyunittest//student//", filename));
+
+				return ok("Success");
+
+			}
+			
 			else{
 
 				return ok("Files cannot be uploaded");
@@ -153,14 +163,25 @@ else if(choice.equals("python")){
 
         
         for(String retval: instanceofClass.split("; ")){
-			fWriter.write("\n" +"import pyunittest.student." + retval + "\n");
+			fWriter.write("\n" +"import student." + retval + "\n");
 
 
 	    }
 
+	    fWriter.write("\n" + "mark = "+ overallMark +"\n" +
+					         "name = " + '"'+ assignmentName + '"'+ "\n" +
+					         "grade = 0 " + "\n");
+
+	    fWriter.write("def makefoo():" +"\n" +
+	    	          "    x = 0" + "\n" +
+	    	          "    def foo():" + "\n" +
+	    	          "        nonlocal x" + "\n" +
+	    	          "        x = 1"+ "\n" +
+	    			  "        return x" + "\n" +
+	    			  "    return foo" + "\n" + "\n" +
+	    			  "foo = makefoo()" +"\n");
+
 	    fWriter.write("\n" + "class Tester(unittest.TestCase):" + "\n" + "\n");
-	    fWriter.write("\n" + "    mark = "+ overallMark +"\n" +
-					         "    name = " + '"'+ assignmentName + '"'+ "\n");
 	    
 	    fWriter.write("    def setUp(self):" + "\n" +
 	    		      "        pass" + "\n");
@@ -173,7 +194,13 @@ else if(choice.equals("python")){
 			currentline = currentline.trim();
 
 			if (currentline.equals("test")){
-				line  = line  + "\n" + "   def test" + Integer.toString(count) + "(self):" + "\n"+ "       "+ br.readLine() + "\n"+ "       grade(" + br.readLine() + ")" + "\n" ;
+				String[] compare = br.readLine().split(";");
+
+				line  = line  + "\n" +"    def test" + Integer.toString(count) + "(self):" + 
+								"\n"+ "       global grade"+ 
+								"\n" +"       "+ "self.assertEqual("+ compare[0]+ ","+ "student."+compare[1] +")"+ 
+								"\n"+ "       grade = grade +(foo() *"+br.readLine()+")"+ 
+								"\n"+ "       print(str(grade))       ";
 						fWriter.write(line+ "\n");
 						count = count + 1;
 						line = "";
@@ -183,17 +210,8 @@ else if(choice.equals("python")){
 		
 		br.close();
 
-		fWriter.write("\n" + "     # Method to compare integers" + "\n" 
-			          + "   def compareInt(a, b):" + "\n"+ 
-			            "         self.assertEquals(a,b)" + "\n");
-
-		fWriter.write("\n" + "     # Method to count grade" + "\n" 
-			          + "   def grade(x):" + "\n"+ 
-			            "        grade.counter += x " + "\n");
-
-
-
-		fWriter.write("\n" + "\n" +"if __name__ == '__main__':" + "\n" +
+		
+        fWriter.write("\n" + "\n" +"if __name__ == '__main__':" + "\n" +
 	    				     "    unittest.main()");
 	    
 	    fWriter.close();
