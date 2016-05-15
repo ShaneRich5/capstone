@@ -52,8 +52,9 @@
         }
     </section>
 
-    @if(user!= null && !course.participants.contains(user.name)) {
-        <a href="/courses/@course.name/join" class="btn btn-primary">Join</a>
+    @if(session.get("role").equals("Administrator")){
+        <a href="/courses/assign/@course.code" class="btn btn-primary">Assign Lecturer</a>
+
     }
 </div>
 

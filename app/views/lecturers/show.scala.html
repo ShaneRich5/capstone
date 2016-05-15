@@ -1,0 +1,30 @@
+@(lecturer: User)
+
+@main("Assignments") {
+
+<div class="container">
+
+    <h1>
+        @lecturer.name.toUpperCase()
+    </h1>
+
+    <p>@lecturer.getIdNum()</p>
+
+    <section>
+        <h2>Courses</h2>
+
+        @if(0 == lecturer.courses.size()) {
+            <p>No courses.</p>
+        } else {
+            <ul class="list-group">
+                @for(course <- lecturer.getCourses) {
+                    <li class="list-group-item"><a href="/courses/@course.code">
+                        @course.name.toUpperCase()
+                    <span class="label label-default label-pill pull-xs-right">@course.participants.size()</span>
+                    </a></li>
+                }
+            </ul>
+        }
+    </section>
+</div>
+    }

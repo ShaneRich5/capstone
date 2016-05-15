@@ -10,7 +10,7 @@
 
         <div class="list-group">
         @for(course <- courses) {
-            <a href="/courses/@course.name.toLowerCase()" class="list-group-item">
+            <a href="/courses/@course.code" class="list-group-item">
                 @course.name.toUpperCase()
             <span class="label label-default label-pill pull-xs-right">@course.participants.size()</span>
             </a>

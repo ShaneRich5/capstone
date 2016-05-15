@@ -46,16 +46,24 @@ public class OurvleConnector {
 
     public User authenticate(String id, String password)
     {
+        System.out.println("OurVLE auth:"+id+" "+password);
         User returnUser = new User(id,"","");
 
         final CompletionStage<List<WSCookie>> response =
-                WS.url("http://ourvle.mona.uwi.edu/login/index.php?authldap_skipntlmsso=1").setFollowRedirects(true).setHeader("Upgrade-Insecure-Requests","1")
-                        .setContentType("application/x-www-form-urlencoded").setHeader("Cookie","").post("username="+id+"&password="+password)
+                WS.url("http://ourvle.mona.uwi.edu/login/index.php").setFollowRedirects(false)
+                        .setHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                        .setHeader("Accept-Encoding","gzip, deflate")
+                        .setHeader("Accept-Language","en-US,en;q=0.8")
+                        .setHeader("Upgrade-Insecure-Requests","1")
+                        .setHeader("User-Agent","Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36")
+                        .setHeader("Referer","http://ourvle.mona.uwi.edu/")
+                        .setHeader("Origin","http://ourvle.mona.uwi.edu ")
+                        .setContentType("application/x-www-form-urlencoded").setHeader("Cookie","MoodleSession=").post("password="+password+"&username="+id)
                         .thenApply(res ->
                                 {
                                  System.out.println("\n");
                                     System.out.println("First Request:"+res.getAllHeaders());
-                                    if (res.getStatus() == 200) {
+                                    if (res.getStatus() == 200 || (res.getStatus() == 303 && res.getHeader("Location").contains("testsession"))) {
                                         return res.getCookies();
                                     }
                                     else

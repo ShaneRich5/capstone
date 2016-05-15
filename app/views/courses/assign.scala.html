@@ -1,0 +1,23 @@
+@(code : String)
+@main("Courses") {
+
+    <div class="container">
+
+    @if(session.get("role").equals("Administrator")){
+        <h1>Assign Lecturer</h1>
+
+        <form role="form" method="POST" id="assignForm" action="/courses/assign/">
+            <div class="form-group">
+                <label for="id">Lecturer ID#</label>
+                <input type="text" class="form-control" id="id" name="id">
+            </div>
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="code" name="code" value="@code">
+            </div>
+            <button type="submit" class="btn btn-default">Assign</button>
+        </form>
+    }
+
+    </div>
+
+}

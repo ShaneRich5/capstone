@@ -1,12 +1,15 @@
 package controllers;
 
 import models.Course;
+import models.Role;
 import models.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.courses.*;
+import views.html.lecturers.create;
+import views.html.lecturers.index;
+import views.html.lecturers.show;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -21,15 +24,10 @@ public class LecturersController extends Controller {
     FormFactory formFactory;
 
     public Result all() {
-        List<Course> courses = new ArrayList<>();
+        List<User> lecturers = new ArrayList<>();
         if(session("role").equals("Administrator"))
-            courses = Course.find.all();
-        else if(session("id") != null)
-        {
-            courses = User.find.where().eq("idNum",session("id")).findUnique().courses;
-        }
-
-        return ok(index.render(courses));
+            lecturers = User.find.where().eq("role", Role.find.where().eq("name","Lecturer").findUnique()).findList();
+        return ok(index.render(lecturers));
     }
 
     public Result create() {
@@ -39,45 +37,32 @@ public class LecturersController extends Controller {
     public Result store() {
         DynamicForm requestData = formFactory.form().bindFromRequest();
 
-        final String name = requestData.get("name").toLowerCase();
-        final String description = requestData.get("description");
-
-        Course course = new Course(name, description,Course.codeFromName(name));
-        course.save();
-
-        return redirect("/courses");
+        final String id = requestData.get("id");
+        if(session("role").equals("Administrator"))
+        {
+            User l = User.find.where().idEq(id).findUnique();
+            Role lecturerRole = Role.find.where().eq("name","Lecturer").findUnique();
+            if(l == null)
+            {
+                l = new User(id,"","");
+                l.setRole(lecturerRole);
+                l.save();
+            }else
+            {
+                l.setRole(lecturerRole);
+                l.update();
+            }
+        }
+        return redirect("/lecturers");
     }
 
-    public Result show(String name) {
-        Course course = Course.find.where()
-                .eq("name", name.toLowerCase())
+    public Result show(String id) {
+        User lecturer = User.find.where()
+                .eq("idNum", id)
                 .findUnique();
 
-        if (null == course) return redirect(LecturersController.all());
-
-        String email = session().get("email");
-
-        User currentUser = User.find.where()
-                .eq("email", email)
-                .findUnique();
-
-
-
-        return ok(show.render(course, currentUser));
-    }
-
-    public Result join(String name) {
-        String email = session().get("email");
-
-        if (null == email) return redirect(LecturersController.show(name));
-
-        Course course = Course.findByName(name);
-        User user = User.findByEmail(email);
-
-        course.participants.add(user);
-        course.save();
-
-        return redirect(LecturersController.show(name));
+        if (null == lecturer) return all();
+        return ok(show.render(lecturer));
     }
 
     public Result edit() {

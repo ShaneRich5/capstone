@@ -33,8 +33,17 @@ GET     /courses/create             controllers.CoursesCtrl.create
 POST    /courses                    controllers.CoursesCtrl.store
 GET     /courses/edit               controllers.CoursesCtrl.edit
 PUT     /courses                    controllers.CoursesCtrl.update
-GET     /courses/:name/join         controllers.CoursesCtrl.join(name: String)
-GET     /courses/:name              controllers.CoursesCtrl.show(name: String)
+GET     /courses/:code              controllers.CoursesCtrl.show(code: String)
+GET     /courses/assign/:code       controllers.CoursesCtrl.assign(code: String)
+POST     /courses/assign/           controllers.CoursesCtrl.saveAssign
+
+#lecturers for admin
+GET     /lecturers                    controllers.LecturersController.all
+GET     /lecturers/create             controllers.LecturersController.create
+POST    /lecturers                    controllers.LecturersController.store
+GET     /lecturers/edit               controllers.LecturersController.edit
+PUT     /lecturers                    controllers.LecturersController.update
+GET     /lecturers/:id              controllers.LecturersController.show(id: String)
 
 # Assignment pages
 GET     /courses/:name/assignments          controllers.AssignmentsCtrl.all(name)

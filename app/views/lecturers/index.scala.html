@@ -1,0 +1,30 @@
+@(lecturers: List[User])
+@main(title = "Lecturers") {
+
+
+<div class="container">
+    <h1>Lecturers</h1>
+    @if(lecturers.isEmpty()) {
+        <p>No lecturers to show.</p>
+    } else {
+
+        <div class="list-group">
+        @for(lecturer <- lecturers) {
+            <a href="/lecturers/@lecturer.getIdNum()" class="list-group-item">
+                @lecturer.name.toUpperCase()  @lecturer.getIdNum
+            <span class="label label-default label-pill pull-xs-right">@lecturer.courses.size()</span>
+            </a>
+
+        }
+        </div>
+    }
+
+    @if(session.get("role").equals("Administrator")){
+        <a href="/lecturers/create" class="btn btn-primary btn-block">Add Lecturer</a>
+    }
+
+
+
+</div>
+
+}

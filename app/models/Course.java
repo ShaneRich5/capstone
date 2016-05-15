@@ -16,15 +16,15 @@ public class Course extends Model {
 
     public static Finder<Long, Course> find = new Finder<Long, Course>(Course.class);
 
-    @Id
-    public Long id;
-
     @Column(unique = true)
     @Constraints.Required
     public String name;
 
     public String description;
 
+    @Id
+    @Constraints.Required
+    @Column(unique = true)
     public String code;
 
     @OneToOne
@@ -41,6 +41,8 @@ public class Course extends Model {
         this.description = description;
         this.code = code;
     }
+
+    public void addParticipant(User participant){participants.add(participant);}
 
     public static String codeFromName(String name)
     {

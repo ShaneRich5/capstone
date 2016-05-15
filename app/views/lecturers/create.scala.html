@@ -1,0 +1,22 @@
+
+
+
+@main("Assignments") {
+
+<div class="container">
+
+    @if(session.get("role").equals("Administrator")){
+        <h1>New Lecturer</h1>
+
+        <form role="form" method="POST" id="lecturerForm" action="/lecturers">
+            <div class="form-group">
+                <label for="id">Lecturer ID#</label>
+                <input type="number" class="form-control" id="id" name="id">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    }
+
+</div>
+
+}

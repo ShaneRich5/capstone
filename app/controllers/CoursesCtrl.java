@@ -1,12 +1,14 @@
 package controllers;
 
 import models.Course;
+import models.Role;
 import models.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.courses.*;
+import views.html.pages.home;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -48,36 +50,47 @@ public class CoursesCtrl extends Controller {
         return redirect("/courses");
     }
 
-    public Result show(String name) {
+    public Result show(String code) {
         Course course = Course.find.where()
-                .eq("name", name.toLowerCase())
+                .eq("code", code)
                 .findUnique();
 
         if (null == course) return redirect(routes.CoursesCtrl.all());
-
-        String email = session().get("email");
-
         User currentUser = User.find.where()
-                .eq("email", email)
+                .eq("idNum", session("id"))
                 .findUnique();
-
-
 
         return ok(show.render(course, currentUser));
     }
 
-    public Result join(String name) {
-        String email = session().get("email");
+    public Result assign(String code)
+    {
 
-        if (null == email) return redirect(routes.CoursesCtrl.show(name));
+        if(session("role").equals("Administrator"))
+        {
+            return ok(assign.render(code));
+        }else return ok(home.render());
 
-        Course course = Course.findByName(name);
-        User user = User.findByEmail(email);
+    }
 
-        course.participants.add(user);
-        course.save();
+    public Result saveAssign()
+    {
+        if(session("role").equals("Administrator")) {
+            DynamicForm requestData = formFactory.form().bindFromRequest();
 
-        return redirect(routes.CoursesCtrl.show(name));
+            final String id = requestData.get("id");
+            final String code = requestData.get("code");
+            User lect = User.find.where().eq("idNum", id).eq("role", Role.find.where().eq("name", "Lecturer").findUnique()).findUnique();
+            if (lect != null) {
+                Course c = Course.findByCode(code);
+                lect.getCourses().add(c);
+                lect.update();
+                c.addParticipant(lect);
+                c.update();
+            }
+            return show(code);
+        }
+        return redirect("/");
     }
 
     public Result edit() {
@@ -94,4 +107,5 @@ public class CoursesCtrl extends Controller {
 
         return ok("Delete assignment");
     }
+
 }

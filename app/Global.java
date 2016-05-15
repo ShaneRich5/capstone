@@ -39,9 +39,13 @@ public class Global extends GlobalSettings {
                 }
             }
         }
-//        if(User.find.findRowCount() > 0) {
-//            List<User> users = User.find.findList();
-//            users.forEach(Model::delete);
-//        }
+        if(User.find.findRowCount() > 0) {
+            List<User> users = User.find.findList();
+//            for(User u: users)
+//               u.delete();
+            System.out.println("Users in DB");
+            for(User u: users)
+                System.out.println(u.getIdNum()+" "+u.name);
+        }
     }
 }
