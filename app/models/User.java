@@ -91,6 +91,7 @@ public class User extends Model {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
+	public void addCourses(List<Course> courses) {courses.forEach(course -> this.courses.add(course));}
 
 
 //	public static User authenticate(String idNum, String password) {

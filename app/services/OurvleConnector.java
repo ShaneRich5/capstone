@@ -115,7 +115,7 @@ public class OurvleConnector {
             String name = document.getElementsByClass("profilepic").attr("title");
             System.out.println("Name found:"+name);
             returnUser.setName(name);
-            returnUser.setCourses(courses);
+            returnUser.addCourses(courses);
             if(name.length() < 1)
                 return null;
 
