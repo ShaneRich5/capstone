@@ -46,7 +46,7 @@ public Result addFiles(){
 				String filename = program.getFilename();
 				File file = program.getFile();
 				file.renameTo(new File (new File(".").getAbsolutePath() + "//test//junittest//student//", filename));
-				return ok("success");
+				return redirect("/upload");
 			}
 			
 			else if(program.getFilename().toLowerCase().endsWith(".py")){
@@ -54,7 +54,7 @@ public Result addFiles(){
 				File file = program.getFile();
 				file.renameTo(new File(new File(".").getAbsolutePath() + "//test//pyunittest//student//", filename));
 
-				return ok("Success");
+				return redirect("/upload");
 
 			}
 			
@@ -63,6 +63,42 @@ public Result addFiles(){
 				return ok("Files cannot be uploaded");
 			}
 		
+}
+
+public Result result(){
+	String cmdline = "";
+	String[] postAction = request().body().asFormUrlEncode().get("action");
+	if(postAction == null || postAction.length == 0){
+		return ok("Check yourself");
+
+	}
+	else{
+		String action = postAction[0];
+		if("grader".equals(action)){
+			
+			try{
+				ProcessBuilder pb = new ProcessBuilder("activator test");
+				pb.directory(new File(new File(".").getAbsolutePath()));
+				pb.inheritIO();
+				Process p = pb.start();
+				InputStream is = p.getInputStream();
+				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+				String line = null;
+				while((line = br.readLine()) != null){
+						cmdline = cmdline + line + "\n";
+				}
+
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			return ok(cmdline);
+		}
+
+	 }
+ 
+
+
 }
 
 public Result addtest(){

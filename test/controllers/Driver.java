@@ -43,23 +43,7 @@ public class Driver {
           System.out.println("Percentage: " + method2.invoke(obj));
           System.out.println(failed);
           
-            try{
-               File file = new File(method3.invoke(obj) + ".txt");
-               if(!file.exists()){
-                 file.createNewFile();
-               }
-              FileWriter fw = new FileWriter(file, true);
-              BufferedWriter bw = new BufferedWriter(fw);
-              PrintWriter pw = new PrintWriter(bw);
-              pw.println("");
-              pw.println("Student: " + method.invoke(obj));
-              pw.close();
-         
-               }
-            catch(IOException io){
-                    io.getMessage();
-                 }
-          }
+              }
          catch(NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex){
              System.out.println(ex.getMessage());
            }
