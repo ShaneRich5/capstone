@@ -1,26 +1,30 @@
 @(courses: List[Course])
+@main(title = "Courses") {
 
-@main(title = "Assignments") {
 
 <div class="container">
     <h1>Courses</h1>
-
     @if(courses.isEmpty()) {
         <p>No courses available</p>
     } else {
 
         <div class="list-group">
-            @for(course <- courses) {
-                <a href="/courses/@course.name.toLowerCase()" class="list-group-item">
-                    @course.name.toUpperCase()
-                    <span class="label label-default label-pill pull-xs-right">@course.participants.size()</span>
-                </a>
-            }
+        @for(course <- courses) {
+            <a href="/courses/@course.name.toLowerCase()" class="list-group-item">
+                @course.name.toUpperCase()
+            <span class="label label-default label-pill pull-xs-right">@course.participants.size()</span>
+            </a>
+        }
         </div>
 
     }
 
-    <a href="/courses/create" class="btn btn-primary btn-block">Add Course</a>
+    @if(session.get("role").equals("Administrator")){
+        <a href="/courses/create" class="btn btn-primary btn-block">Add Course</a>
+    }
+
+
+
 </div>
 
 }

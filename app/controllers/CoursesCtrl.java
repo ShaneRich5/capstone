@@ -9,6 +9,7 @@ import play.mvc.Result;
 import views.html.courses.*;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,13 @@ public class CoursesCtrl extends Controller {
     FormFactory formFactory;
 
     public Result all() {
-        List<Course> courses = Course.find.all();
+        List<Course> courses = new ArrayList<>();
+        if(session("role").equals("Administrator"))
+            courses = Course.find.all();
+        else if(session("id") != null)
+        {
+            courses = User.find.where().eq("idNum",session("id")).findUnique().courses;
+        }
 
         return ok(index.render(courses));
     }
