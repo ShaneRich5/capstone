@@ -1,0 +1,37 @@
+New log file opened at Sun May 15 06:38:48 COT 2016 by 29328@DESKTOP-V6IH7VL
+Taking next connection to: 42167
+New client attempting to connect on port: 42169-42167
+  Address = /192.168.111.1:42167
+This client on port 42169 has uuid e6400390-9cc5-4972-ba08-1334bed1ae71 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-e6400390-9cc5-4972-ba08-1334bed1ae71
+Taking next connection to: 42167
+New client attempting to connect on port: 42170-42167
+  Address = /192.168.111.1:42167
+Handshake exception on socket: 42170
+sbt.impl.ipc.HandshakeException: Unable to perform handshake
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
+	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
+	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
+Caused by: java.net.SocketException: Software caused connection abort: recv failed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(Unknown Source)
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.io.BufferedInputStream.fill(Unknown Source)
+	at java.io.BufferedInputStream.read(Unknown Source)
+	at java.io.DataInputStream.readInt(Unknown Source)
+	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
+	... 2 more
+Taking next connection to: 42167
+New client attempting to connect on port: 42171-42167
+  Address = /192.168.111.1:42167
+This client on port 42171 has uuid 93a9e63a-55bf-431e-ad12-dc3ff4e6da26 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-e6400390-9cc5-4972-ba08-1334bed1ae71, activator-93a9e63a-55bf-431e-ad12-dc3ff4e6da26
+Taking next connection to: 42167
+Checking to see if clients are empty...
+No non-daemon clients connected after 3 min. Shutting down.
+Server socket thread exiting.
+0 clients open, will close them...
+All client sockets have been closed.
+Closing the 29328@DESKTOP-V6IH7VL logs at Sun May 15 06:42:00 COT 2016, goodbye.
