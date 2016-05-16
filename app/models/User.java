@@ -41,7 +41,35 @@ public class User extends Model {
 	@ManyToMany
 	public List<Course> courses;
 
-	public User() {}
+	public List<Assignment> getAssignments() {
+		return assignments;
+	}
+
+	public void setAssignments(List<Assignment> assignments) {
+		this.assignments = assignments;
+	}
+
+	public List<Submission> getSubmissions() {
+		return submissions;
+	}
+
+	public void setSubmissions(List<Submission> submissions) {
+		this.submissions = submissions;
+	}
+
+	public boolean isRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(boolean rememberMe) {
+		this.rememberMe = rememberMe;
+	}
+
+	public User() {
+		courses = new ArrayList<>();
+		submissions = new ArrayList<>();
+		assignments = new ArrayList<>();
+	}
 
 	public User(String idNum,String name, String email) {
 		this.idNum = idNum;
@@ -92,6 +120,7 @@ public class User extends Model {
 		this.courses = courses;
 	}
 	public void addCourses(List<Course> courses) {courses.forEach(course -> this.courses.add(course));}
+    public void addCourse(Course c) {courses.add(c);}
 
 
 //	public static User authenticate(String idNum, String password) {
@@ -124,4 +153,5 @@ public class User extends Model {
 		// hash password
 		super.save();
 	}
+
 }

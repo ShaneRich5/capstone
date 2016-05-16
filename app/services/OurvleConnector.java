@@ -101,7 +101,7 @@ public class OurvleConnector {
 
 
             Document document = Jsoup.parse(response2.toCompletableFuture().get());
-            System.out.println("\n\n\n\n"+document+"\n\n\n\n");
+            //System.out.println("\n\n\n\n"+document+"\n\n\n\n");
             List<Course> courses = new ArrayList<Course>();
             Elements el1 = document.getElementsByClass("coursename");
             for(Element element : el1) {
@@ -111,6 +111,7 @@ public class OurvleConnector {
                 if (c != null)
                     courses.add(c);
                 System.out.println("Course found:"+code);
+
             }
             String name = document.getElementsByClass("profilepic").attr("title");
             System.out.println("Name found:"+name);

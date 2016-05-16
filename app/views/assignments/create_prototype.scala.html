@@ -1,0 +1,54 @@
+@(course: Course)
+
+@main("Assignment") {
+
+
+
+  <div class="container">
+    <h1>@course.name.toUpperCase()</h1>
+
+    <h3>New Assignment</h3>
+
+    <form role="form" method="POST" id="loginForm" action="/courses/@course.name/assignments">
+      <div class="form-group">
+        <label for="name">name</label>
+        <input type="text" class="form-control" id="name" name="name">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="File">Upload Assignment File</label>
+        <a class="btn btn-primary" href="">Upload File</a>
+      </div>
+
+      <div class="form-group">
+        <label for="choice"> Choose Assignment Language </label>
+        <select name="language" id="language">
+          <option value="Java">Java</option>
+          <option value="Python">Java</option>
+          <option value="C">Java</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="class"> Enter Test Header</label>
+        <textarea class="form-control" rows="20" id="testheader" name="testheader"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="amt">Enter the Amount of Test Cases</label>
+        <input type="number" class="form-control" id="amt" name="amt">
+      </div>
+
+      <div class="form-group">
+        <label for="testcase">Enter testcases</label>
+        <textarea class="form-control" rows="20" id="testcase" name="testcase"></textarea>
+      </div>
+
+      <button id="submit" type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+
+}

@@ -4,6 +4,7 @@ import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +32,9 @@ public class Assignment extends Model {
 
     @OneToMany(mappedBy = "assignment")
     public List<Submission> submissions;
+
+    @OneToMany
+    public ArrayList<Test> tests;
 
     public Assignment(String name, String description) {
         this.name = name;

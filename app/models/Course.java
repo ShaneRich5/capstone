@@ -27,6 +27,8 @@ public class Course extends Model {
     @Column(unique = true)
     public String code;
 
+
+
     @OneToOne
     public User lecturer;
 
@@ -41,7 +43,13 @@ public class Course extends Model {
         this.description = description;
         this.code = code;
     }
+    public User getLecturer() {
+        return lecturer;
+    }
 
+    public void setLecturer(User lecturer) {
+        this.lecturer = lecturer;
+    }
     public void addParticipant(User participant){participants.add(participant);}
 
     public static String codeFromName(String name)

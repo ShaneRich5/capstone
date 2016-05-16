@@ -8,11 +8,21 @@ import java.util.*;
 public class Global extends GlobalSettings {
     @Override
     public void onStart(Application app) {
+        if(User.find.findRowCount() > 0)
+        {
+            List<User> users = User.find.findList();
+            //users.stream().filter(u -> u.getIdNum() != null).forEach(Model::delete);
+            System.out.println("Users in DB");
+            for(User u: users)
+                System.out.println(u.getIdNum()+" "+u.name);
+        }
+
         if (Role.find.findRowCount() == 0) {
             new Role(1,"Administrator","").save();
             new Role(2,"Lecturer","").save();
             new Role(3,"Student","").save();
         }
+
         if(Course.find.findRowCount() == 0)
         {
             new Course("Systems Programming","","COMP2130").save();
@@ -39,13 +49,6 @@ public class Global extends GlobalSettings {
                 }
             }
         }
-        if(User.find.findRowCount() > 0) {
-            List<User> users = User.find.findList();
-//            for(User u: users)
-//               u.delete();
-            System.out.println("Users in DB");
-            for(User u: users)
-                System.out.println(u.getIdNum()+" "+u.name);
-        }
+
     }
 }

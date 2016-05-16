@@ -27,7 +27,7 @@ public class AssignmentsCtrl extends Controller {
 
     public Result create(String name) {
         Course course = Course.findByName(name);
-        return ok(create.render(course));
+        return ok(create_prototype.render(course));
     }
 
     public Result store(String courseName) {

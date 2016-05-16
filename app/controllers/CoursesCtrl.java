@@ -73,9 +73,8 @@ public class CoursesCtrl extends Controller {
 
     }
 
-    public Result saveAssign()
-    {
-        if(session("role").equals("Administrator")) {
+    public Result saveAssign() {
+        if (session("role").equals("Administrator")) {
             DynamicForm requestData = formFactory.form().bindFromRequest();
 
             final String id = requestData.get("id");
@@ -83,12 +82,19 @@ public class CoursesCtrl extends Controller {
             User lect = User.find.where().eq("idNum", id).eq("role", Role.find.where().eq("name", "Lecturer").findUnique()).findUnique();
             if (lect != null) {
                 Course c = Course.findByCode(code);
-                lect.getCourses().add(c);
-                lect.update();
-                c.addParticipant(lect);
-                c.update();
+                if (c != null) {
+                    if(!lect.getCourses().contains(c)) {
+                        lect.addCourse(c);
+                        lect.update();
+                        c.addParticipant(lect);
+                    }
+                    c.setLecturer(lect);
+                    c.update();
+                } else
+                    return internalServerError();
+                return show(code);
             }
-            return show(code);
+
         }
         return redirect("/");
     }

@@ -1,5 +1,6 @@
 package services;
 
+import models.Course;
 import models.Role;
 import models.User;
 
@@ -24,7 +25,14 @@ public class Authenticator {
         }else
         {
             OurvleUser.setRole(returnUser.getRole());
+            OurvleUser.setAssignments(returnUser.getAssignments());
+            OurvleUser.setSubmissions(returnUser.getSubmissions());
+            returnUser.getCourses().stream().filter(c -> !OurvleUser.getCourses().contains(c)).forEach(OurvleUser::addCourse);
             OurvleUser.update();
+            OurvleUser.getCourses().stream().filter(c -> !c.participants.contains(OurvleUser)).forEach(c -> {
+                c.addParticipant(OurvleUser);
+                c.update();
+            });
             return OurvleUser;
         }
 
