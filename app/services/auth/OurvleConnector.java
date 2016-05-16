@@ -1,4 +1,4 @@
-package services;
+package services.auth;
 
 import models.Course;
 import models.User;
