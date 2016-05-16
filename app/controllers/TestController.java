@@ -66,7 +66,7 @@ public Result addFiles(){
 }
 
 public Result result(){
-	String cmdline = "";
+	
 
 	
 
@@ -78,19 +78,22 @@ public Result result(){
 	}
 	else{
 		String action = postAction[0];
+		String cmdline = "";
 		if("grader".equals(action)){
 			
 			try{
-				ProcessBuilder pb = new ProcessBuilder(new File(".").getAbsolutePath() + "activator test");
-				pb.directory(new File(new File(".").getAbsolutePath()));
-				pb.inheritIO();
+				ProcessBuilder pb = new ProcessBuilder("python PyunitTest.py -v");
+				
 				Process p = pb.start();
 				InputStream is = p.getInputStream();
 				BufferedReader br = new BufferedReader(new InputStreamReader(is));
 				String line = null;
 				while((line = br.readLine()) != null){
 						cmdline = cmdline + line + "\n";
+						System.out.println(line);
 				}
+				p.waitFor();
+				
 
 			}
 			catch(Exception e){
@@ -98,7 +101,8 @@ public Result result(){
 			}
 			
 		}
-		return ok(cmdline);
+        System.out.println(cmdline);		
+        return ok(cmdline);
     }
  
 

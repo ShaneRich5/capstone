@@ -22,7 +22,7 @@ public class Global extends GlobalSettings {
             new Course("Database Management Systems","","COMP3161").save();
             new Course("Theory of Computation","","COMP3702").save();
             new Course("Modern Communication Systems","","ELET2480").save();
-            String[] admins = {"620063216"};
+            String[] admins = {"620063216","620067948"};
             for(String admin: admins)
             {
                 User u = new User(admin,null,null);
