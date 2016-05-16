@@ -48,6 +48,7 @@ create table submissions (
 create table tests (
   id                        integer not null,
   test_header               varchar(255),
+  assignment_id             bigint,
   constraint pk_tests primary key (id))
 ;
 
@@ -106,10 +107,12 @@ alter table submissions add constraint fk_submissions_assignment_6 foreign key (
 create index ix_submissions_assignment_6 on submissions (assignment_id);
 alter table submissions add constraint fk_submissions_student_7 foreign key (student_id_num) references users (id_num) on delete restrict on update restrict;
 create index ix_submissions_student_7 on submissions (student_id_num);
-alter table testcases add constraint fk_testcases_test_8 foreign key (test_id) references tests (id) on delete restrict on update restrict;
-create index ix_testcases_test_8 on testcases (test_id);
-alter table users add constraint fk_users_role_9 foreign key (role_id) references roles (id) on delete restrict on update restrict;
-create index ix_users_role_9 on users (role_id);
+alter table tests add constraint fk_tests_assignment_8 foreign key (assignment_id) references assignments (id) on delete restrict on update restrict;
+create index ix_tests_assignment_8 on tests (assignment_id);
+alter table testcases add constraint fk_testcases_test_9 foreign key (test_id) references tests (id) on delete restrict on update restrict;
+create index ix_testcases_test_9 on testcases (test_id);
+alter table users add constraint fk_users_role_10 foreign key (role_id) references roles (id) on delete restrict on update restrict;
+create index ix_users_role_10 on users (role_id);
 
 
 

@@ -2,10 +2,7 @@ package models;
 
 import com.avaje.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -23,6 +20,9 @@ public class Test extends Model
     @OneToMany
     private List<TestCase> testCases;
 
+    @ManyToOne
+    private Assignment assignment;
+
     public String getTestHeader() {
         return testHeader;
     }
@@ -37,5 +37,13 @@ public class Test extends Model
 
     public void setTestCases(List<TestCase> testCases) {
         this.testCases = testCases;
+    }
+
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
     }
 }
