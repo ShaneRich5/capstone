@@ -18,6 +18,8 @@ public class PagesCtrl extends Controller {
 	}
 
 	public Result about() {
+
+
 		return ok(about.render());
 	}
 
