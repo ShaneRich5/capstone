@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
-import services.OurvleConnector;
 
 @Entity
 @Table(name = "users")

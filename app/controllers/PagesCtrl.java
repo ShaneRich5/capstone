@@ -13,11 +13,11 @@ import views.html.pages.*;
 public class PagesCtrl extends Controller {
 		public Result home() {
 		if (0 == User.find.findRowCount()) session().clear();
-
 		return ok(home.render());
 	}
 
 	public Result about() {
+
 		return ok(about.render());
 	}
 

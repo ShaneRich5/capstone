@@ -37,7 +37,7 @@ public class Assignment extends Model {
     public List<Submission> submissions;
 
     @OneToMany
-    public ArrayList<Test> tests;
+    public List<Test> tests;
 
     public Assignment(String name, String description) {
         this.name = name;

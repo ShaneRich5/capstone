@@ -6,7 +6,7 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.libs.ws.WSClient;
 import play.mvc.*;
-import services.Authenticator;
+import services.auth.Authenticator;
 import views.html.pages.home;
 import views.html.sessions.*;
 import views.html.sessions.login;

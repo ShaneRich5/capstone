@@ -1,6 +1,5 @@
-package services;
+package services.auth;
 
-import models.Course;
 import models.Role;
 import models.User;
 
