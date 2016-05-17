@@ -12,10 +12,9 @@ import java.util.List;
 @Table(name = "tests")
 public class Test extends Model
 {
+    public static Finder<Long, Test> find = new Finder<>(Test.class);
     @Id
     private int id;
-
-    private String testHeader;
 
     @OneToMany
     private List<TestCase> testCases;
@@ -23,13 +22,6 @@ public class Test extends Model
     @ManyToOne
     private Assignment assignment;
 
-    public String getTestHeader() {
-        return testHeader;
-    }
-
-    public void setTestHeader(String testHeader) {
-        this.testHeader = testHeader;
-    }
 
     public List<TestCase> getTestCases() {
         return testCases;
@@ -46,4 +38,5 @@ public class Test extends Model
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
+
 }

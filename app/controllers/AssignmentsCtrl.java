@@ -1,15 +1,19 @@
 package controllers;
 
 import com.google.inject.Inject;
-import models.Assignment;
-import models.Course;
-import models.User;
+import models.*;
+import models.Forms.AssignmentForm;
+import org.apache.commons.io.FileUtils;
 import play.data.DynamicForm;
+import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.html.assignments.*;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,27 +34,52 @@ public class AssignmentsCtrl extends Controller {
         return ok(create_prototype.render(course));
     }
 
-    public Result store(String courseName) {
-        if (! session().get("role").equals("lecturer")) return redirect("/login");
+    public Result store(String courseCode) {
+//        if (! session().get("role").equals("lecturer")) return redirect("/login");
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        Form<AssignmentForm> form = formFactory.form(AssignmentForm.class).bindFromRequest();
+        AssignmentForm formFields = form.get();
 
-        DynamicForm requestData = formFactory.form().bindFromRequest();
+        ArrayList<TestCase> testCases = new ArrayList<>();
+        Test t = null;
+        t = new Test();
+        Http.MultipartFormData.FilePart<File> assignmentFilePart = body.getFile("assignment");
+        for(int i = 0; i < formFields.amount; ++i) {
+            Http.MultipartFormData.FilePart<File> tcase = body.getFile("case"+String.valueOf(i));
+            File f = tcase.getFile();
+            try {
+                TestCase tc = TestCase.javaTestCaseFromForm(f, formFields, i, t);
+                testCases.add(tc);
+            }catch (Exception e){return internalServerError();}
+        }
+        t.setTestCases(testCases);
 
-        if (requestData.data().size() == 0) return badRequest("Expected data");
+        File assignmentFile = assignmentFilePart.getFile();
+        
 
-        final String assignmentName = requestData.get("name");
-        final String assignmentDescription = requestData.get("description");
+        Course course = Course.findByCode(courseCode);
+        User lecturer = User.find.where().eq("idNum",session().get("id")).findUnique();
+        Language language = Language.find.where().eq("name",formFields.language).findUnique();
 
-        Course course = Course.findByName(courseName);
-        User lecturer = User.findByEmail(session().get("email"));
-
-        if (null == courseName) return ok("Course not found");
+        if (null == course) return ok("Course not found");
         if (null == lecturer) return ok("Lecturer not found");
+        if (null == language) return ok("Language not found");
 
 
-        Assignment assignment = new Assignment(assignmentName, assignmentDescription);
+        Assignment assignment = new Assignment(formFields.name, formFields.description);
         assignment.course = course;
         assignment.lecturer = lecturer;
+        assignment.language = language;
+        assignment.tests.add(t);
+        String path = "assignments/"+assignment.course.code+"/"+assignmentFile.getName();
+        assignment.setPath(path);
         assignment.save();
+
+        try {
+            FileUtils.moveFile(assignmentFile, new File(path));
+        }catch (Exception e){return internalServerError();}
+        course.assignments.add(assignment);
+        course.update();
 
         return redirect(routes.AssignmentsCtrl.show(course.name, assignment.id));
     }

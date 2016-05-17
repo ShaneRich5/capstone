@@ -10,6 +10,7 @@ create table assignments (
   description               varchar(255),
   lecturer_id_num           varchar(255),
   course_code               varchar(255),
+  path                      varchar(255) not null,
   constraint pk_assignments primary key (id))
 ;
 
@@ -47,15 +48,17 @@ create table submissions (
 
 create table tests (
   id                        integer not null,
-  test_header               varchar(255),
   assignment_id             bigint,
   constraint pk_tests primary key (id))
 ;
 
 create table testcases (
-  code                      varchar(255),
+  name                      varchar(255) not null,
   markscheme_description    varchar(255),
-  test_id                   integer)
+  mark                      integer,
+  test_id                   integer,
+  code                      varchar(255),
+  constraint pk_testcases primary key (name))
 ;
 
 create table users (
@@ -90,6 +93,8 @@ create sequence roles_seq;
 create sequence submissions_seq;
 
 create sequence tests_seq;
+
+create sequence testcases_seq;
 
 create sequence users_seq;
 
@@ -161,6 +166,8 @@ drop sequence if exists roles_seq;
 drop sequence if exists submissions_seq;
 
 drop sequence if exists tests_seq;
+
+drop sequence if exists testcases_seq;
 
 drop sequence if exists users_seq;
 

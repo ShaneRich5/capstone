@@ -9,7 +9,7 @@
 
     <h3>New Assignment</h3>
 
-    <form role="form" method="POST" id="loginForm" action="/courses/@course.name/assignments">
+    <form enctype="multipart/form-data" role="form" method="POST" id="loginForm" action="/courses/@course.code/assignments">
       <div class="form-group">
         <label for="name">name</label>
         <input type="text" class="form-control" id="name" name="name">
@@ -31,12 +31,28 @@
 
       <div class="form-group">
         <label for="File">Upload Assignment File</label><br/>
-        <a class="btn btn-primary" href="">Choose File</a>
+        <input type="file" class="btn btn-primary" name="assignment">
+      </div>
+
+
+      <div class="form-group">
+        <label for="choice"> Enter the Amount of Test Cases </label>
+        <input type="number" class="form-control" id="amount" name="amount">
       </div>
 
       <div class="form-group">
-        <label for="class"> Enter Test Cases File</label><br/>
-        <a class="btn btn-primary" href="">Choose File</a>
+        <label for="class">  Test Cases Files</label><br/>
+          @for(i <- 0 to 9){
+              <label for="class">  Test Cases #@i</label><br/>
+              <label for="class">  Name</label><br/>
+              <input type="text" name="name@i" >
+              <input type="file" class="btn btn-primary" name="case@i" multiple="multiple">
+              <label for="class">  Description In Mark Scheme</label><br/>
+              <input type="textarea" name="description@i" >
+              <label for="class">  Marks</label><br/>
+              <input type="number" name="mark@i" value="0" >
+      }
+
       </div>
 
       <button id="submit" type="submit" class="btn btn-default">Submit</button>
