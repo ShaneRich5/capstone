@@ -35,7 +35,7 @@
             .state('login', {
                 url: '/login',
                 templateUrl: templatePath('auth/login'),
-                controller: 'LoginCtrl'
+                controller: 'SessionsCtrl'
             })
             .state('home', {
                 url: '/home',
