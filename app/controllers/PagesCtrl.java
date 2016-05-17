@@ -11,7 +11,12 @@ import views.html.pages.*;
  * to the application's home page.
  */
 public class PagesCtrl extends Controller {
-		public Result home() {
+
+//	public Result base() {
+//		return ok(base.render());
+//	}
+
+	public Result home() {
 		if (0 == User.find.findRowCount()) session().clear();
 		return ok(home.render());
 	}

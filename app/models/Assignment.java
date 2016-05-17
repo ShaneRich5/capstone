@@ -33,7 +33,7 @@ public class Assignment extends Model {
     @OneToMany(mappedBy = "assignment")
     public List<Submission> submissions;
 
-    @OneToMany
+    @OneToMany(mappedBy = "assignment")
     public List<Test> tests;
 
     public Assignment(String name, String description) {

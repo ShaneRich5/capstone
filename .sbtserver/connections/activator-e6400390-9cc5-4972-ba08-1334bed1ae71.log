@@ -1,9 +1,0 @@
-New log file opened at Sun May 15 06:38:58 COT 2016 by 29328@DESKTOP-V6IH7VL
-Sending msg to client activator-e6400390-9cc5-4972-ba08-1334bed1ae71: DetachedLogEvent(LogMessage(debug,sbt server socket logs are in: C:\Users\Tevin\Desktop\capstone\.sbtserver\connections\master.log))
-Sending msg to client activator-e6400390-9cc5-4972-ba08-1334bed1ae71: DetachedLogEvent(LogMessage(debug,sbt client logs are in: C:\Users\Tevin\Desktop\capstone\.sbtserver\connections\activator-e6400390-9cc5-4972-ba08-1334bed1ae71.log))
-Reading next message from client.
-Sending msg to client activator-e6400390-9cc5-4972-ba08-1334bed1ae71: DetachedLogEvent(LogMessage(debug,sbt general server logs are in: C:\Users\Tevin\Desktop\capstone\.sbtserver\master.log))
-Client activator-e6400390-9cc5-4972-ba08-1334bed1ae71 EOF, shutting down.
-Stopping client.
-Dropping message (0,ReceivedResponse()) to dead client activator-e6400390-9cc5-4972-ba08-1334bed1ae71
-Client activator-e6400390-9cc5-4972-ba08-1334bed1ae71 thread exiting.
