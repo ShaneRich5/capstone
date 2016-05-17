@@ -19,7 +19,8 @@ public class Test extends Model
     @GeneratedValue(strategy=SEQUENCE, generator="CUST_SEQ")
     public long id;
 
-    public String fullTest;
+    @javax.persistence.Column(length=10000)
+    public String fullTest ;
 
     @OneToMany
     private List<TestCase> testCases;

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "roles")
 public class Role extends Model {
-    public static Finder<Long, Role> find = new Finder<Long, Role>(Role.class);
+    public static Model.Finder<Long, Role> find = new Model.Finder<Long, Role>(Role.class);
 
     @Id
     public int id;

@@ -26,7 +26,7 @@
         } else {
             <div class="list-group">
                 @for(ass <- course.assignments) {
-                    <a href="/courses/@course.name/assignments/@ass.id" class="list-group-item">
+                    <a href="/assignments/@ass.id" class="list-group-item">
                         @ass.description
                     </a>
                 }

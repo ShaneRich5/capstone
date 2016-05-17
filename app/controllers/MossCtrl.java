@@ -19,24 +19,21 @@ import java.util.Collection;
 public class MossCtrl extends Controller {
 
     @Inject
-    WSClient ws;
+    WSClient wsClient;
 
     public Result testMoss() {
 
         Collection<File> files = FileUtils.listFiles(new File(
-                new File(".").getAbsolutePath() + "//public//uploads//courses//comp3801//"), new String[] { "java" }, true);
+                new File(".").getAbsolutePath() + "\\public\\uploads\\courses\\comp3801\\"), new String[] { "java" }, true);
 
-//        SocketClient socket = new SocketClient("123456");
 
-        // a list of students' source code files located in the prepared
-        // directory.
 //        Collection<File> files = FileUtils.listFiles(new File(
 //                "C:\\temp\\solution_directory"), new String[] { "java" }, true);
 
         // a list of base files that was given to the students for this
         // assignment.
-        Collection<File> baseFiles = FileUtils.listFiles(new File(
-                "C:\\temp\\base_directory"), new String[] { "java" }, true);
+//        Collection<File> baseFiles = FileUtils.listFiles(new File(
+//                "C:\\temp\\base_directory"), new String[] { "java" }, true);
 
         //get a new socket client to communicate with the Moss server
         //and set its parameters.
@@ -54,27 +51,29 @@ public class MossCtrl extends Controller {
             socketClient.run();
 
             // upload all base files
-            for (File f : baseFiles) {
-                socketClient.uploadBaseFile(f);
-            }
-
+//            for (File f : baseFiles) {
+//                socketClient.uploadBaseFile(f);
+//            }
+//
             //upload all source files of students
             for (File f : files) {
                 socketClient.uploadFile(f);
+
+                System.out.println(f.getName());
             }
 
             //finished uploading, tell server to check files
             socketClient.sendQuery();
 
         } catch (MossException | IOException e) {
-            e.printStackTrace();
-            return ok("Failed");
+//            e.printStackTrace();
+            return ok(e.getMessage());
         }
-
-        //get URL with Moss results and do something with it
+//
+//        //get URL with Moss results and do something with it
         URL results = socketClient.getResultURL();
         System.out.println("Results available at " + results.toString());
 
-        return ok("folder created");
+        return ok("Results available at " + results.toString());
     }
 }

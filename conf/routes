@@ -11,6 +11,8 @@
 # Root page
 # GET     /                           controllers.Assets.at(path="/public", file="base.html")
 
+GET     /mossTest                   controllers.MossCtrl.testMoss
+
 # Angular partials
 GET     /paritals/*file             controllers.Assets.at(path="/public/partials/", file)
 GET     /bower_components/*file     controllers.Assets.at(path="/public/bower_components/", file)
@@ -69,8 +71,8 @@ POST    /tests/finalize/:id                 controllers.TestController.finalizeT
 
 # Submission pages
 GET     /courses/:name/assignments/:courseId/submissions            controllers.SubmissionsCtrl.all(name, courseId: Long)
-GET     /courses/:name/assignments/:courseId/submissions/create     controllers.SubmissionsCtrl.create(name, courseId: Long)
-POST    /courses/:name/assignments/:courseId/submissions            controllers.SubmissionsCtrl.store(name, courseId: Long)
+GET     /assignments/:assID/submissions/create     controllers.SubmissionsCtrl.create(assID: Long)
+POST    /assignments/:assId/submissions            controllers.SubmissionsCtrl.store(assId: Long)
 GET     /courses/:name/assignments/:courseId/submissions/edit       controllers.SubmissionsCtrl.edit(name, courseId: Long)
 PUT     /courses/:name/assignments/:courseId/submissions            controllers.SubmissionsCtrl.update(name, courseId: Long)
 GET     /courses/:name/assignments/:courseId/submissions/:id        controllers.SubmissionsCtrl.show(name, courseId: Long, id: Long)
