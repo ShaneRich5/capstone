@@ -21,13 +21,11 @@ public class User extends Model {
 
 	public String email;
 
-
-
 	public boolean rememberMe;
 
-	/*
-            Relationships
-         */
+	@OneToMany(cascade = CascadeType.ALL)
+	public List<Token> tokens;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	public Role role;
 

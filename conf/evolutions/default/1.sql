@@ -58,6 +58,14 @@ create table testcases (
   test_id                   integer)
 ;
 
+create table tokens (
+  id                        integer not null,
+  value                     varchar(255),
+  description               varchar(255),
+  user_id_num               varchar(255),
+  constraint pk_tokens primary key (id))
+;
+
 create table users (
   id_num                    varchar(255) not null,
   name                      varchar(255),
@@ -91,6 +99,8 @@ create sequence submissions_seq;
 
 create sequence tests_seq;
 
+create sequence tokens_seq;
+
 create sequence users_seq;
 
 alter table assignments add constraint fk_assignments_language_1 foreign key (language_name) references languages (name) on delete restrict on update restrict;
@@ -111,8 +121,10 @@ alter table tests add constraint fk_tests_assignment_8 foreign key (assignment_i
 create index ix_tests_assignment_8 on tests (assignment_id);
 alter table testcases add constraint fk_testcases_test_9 foreign key (test_id) references tests (id) on delete restrict on update restrict;
 create index ix_testcases_test_9 on testcases (test_id);
-alter table users add constraint fk_users_role_10 foreign key (role_id) references roles (id) on delete restrict on update restrict;
-create index ix_users_role_10 on users (role_id);
+alter table tokens add constraint fk_tokens_user_10 foreign key (user_id_num) references users (id_num) on delete restrict on update restrict;
+create index ix_tokens_user_10 on tokens (user_id_num);
+alter table users add constraint fk_users_role_11 foreign key (role_id) references roles (id) on delete restrict on update restrict;
+create index ix_users_role_11 on users (role_id);
 
 
 
@@ -144,6 +156,8 @@ drop table if exists tests;
 
 drop table if exists testcases;
 
+drop table if exists tokens;
+
 drop table if exists users;
 
 drop table if exists users_courses;
@@ -161,6 +175,8 @@ drop sequence if exists roles_seq;
 drop sequence if exists submissions_seq;
 
 drop sequence if exists tests_seq;
+
+drop sequence if exists tokens_seq;
 
 drop sequence if exists users_seq;
 
