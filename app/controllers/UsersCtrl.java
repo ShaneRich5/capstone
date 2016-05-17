@@ -21,7 +21,7 @@ public class UsersCtrl extends Controller {
 
     public Result all(String role) {
         Model.Finder<Long, User> finder = User.find;
-;
+
         List<User> users;
 
         if (null != role)

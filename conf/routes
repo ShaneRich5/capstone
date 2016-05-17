@@ -11,7 +11,7 @@
 # Root page
 # GET     /                           controllers.Assets.at(path="/public", file="base.html")
 
-GET     /mossTest                   controllers.MossCtrl.testMoss
+GET     /triggerMoss                controllers.MossCtrl.triggerMoss
 
 # Angular partials
 GET     /paritals/*file             controllers.Assets.at(path="/public/partials/", file)
@@ -37,7 +37,7 @@ GET     /logout                     controllers.SessionsCtrl.logout
 
 # User pages
 GET		/users                      controllers.UsersCtrl.all(role ?= null)
-GET		/users/$id<[0-9]>           controllers.UsersCtrl.show(id: Long)
+GET		/users/:id                  controllers.UsersCtrl.show(id: Long)
 POST	/users                      controllers.UsersCtrl.store
 
 # Course pages

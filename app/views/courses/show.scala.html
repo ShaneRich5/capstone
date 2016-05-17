@@ -46,7 +46,7 @@
         } else {
             <ul class="list-group">
                 @for(participant <- course.participants) {
-                    <li class="list-group-item">@participant.name [@participant.role.name]</li>
+                    <li class="list-group-item">@participant.name</li>
                 }
             </ul>
         }
@@ -54,7 +54,6 @@
 
     @if(session.get("role").equals("Administrator")){
         <a href="/courses/assign/@course.code" class="btn btn-primary">Assign Lecturer</a>
-
     }
 </div>
 

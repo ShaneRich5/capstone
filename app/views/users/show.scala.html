@@ -6,8 +6,10 @@
         @if(null == user) {
             <p>Unable to load user</p>
         } else {
-            <h1>@user.name <span class="small">@user.email</span></h1>
-            <p>Lorem ipsum</p>
+            <h1>@user.name <span class="small">@user.role.name</span></h1>
+            <p>@user.role.name</p>
+
+
         }
     </div>
 
