@@ -10,7 +10,7 @@ import play.data.validation.Constraints;
 @Table(name = "users")
 public class User extends Model {
 
-	public static Finder<Long, User> find = new Finder<Long, User>(User.class);
+	public static Finder<Long, User> find = new Finder<>(User.class);
 
 	@Id
 	@Constraints.Required
