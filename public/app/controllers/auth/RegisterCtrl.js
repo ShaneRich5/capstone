@@ -8,11 +8,27 @@
     angular
         .module('autograder')
         .controller('RegisterCtrl',
-            ['$scope', '$log', '$auth', registerCtrl]);
+            ['$state', '$scope', '$log', '$auth', registerCtrl]);
 
-    function registerCtrl($scope, $log, $auth) {
+    function registerCtrl($state, $scope, $log, $auth) {
 
-        
-        
+        if($auth.isAuthenticated()) $state.go('home');
+
+        $scope.attemptRegister = function(credentials) {
+            
+            if (credentials == null) {
+                $scope.error = "Enter form data";
+                $state.go('home');
+            }
+            
+            $auth.signup(credentials)
+                .then(function(response) {
+                    $state.go('login');
+                })
+                .catch(function(error) {
+                    $log.log(error);
+                    $scope.error = error.data;
+                });
+        };
     }
 })(angular);

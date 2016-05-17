@@ -16,12 +16,18 @@
         }
         
         $authProvider.baseUrl = '/';
-        $authProvider.loginUrl = '/auth/login';
-        $authProvider.signupUrl = '/auth/register';
+        $authProvider.loginUrl = '/api/auth/login';
+        $authProvider.signupUrl = '/api/auth/register';
         
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
+            .state('')
+            .state('show_user', {
+                url: '/users/:userId',
+                templateUrl: templatePath('users/show'),
+                controller: 'UsersShowCtrl'
+            })
             .state('register', {
                 url: '/register',
                 templateUrl: templatePath('auth/register'),

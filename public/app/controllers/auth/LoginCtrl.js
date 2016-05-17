@@ -8,9 +8,12 @@
     angular
         .module('autograder')
         .controller('LoginCtrl',
-            ['$auth', '$scope', '$log', loginCtrl]);
+            ['$state', '$auth', '$scope', '$log', loginCtrl]);
 
-    function loginCtrl($auth, $scope, $log) {
+    function loginCtrl($state, $auth, $scope, $log) {
+        
+        if ($auth.isAuthenticated()) $state.go('home');
+
         $scope.attemptLogin = function(credentials) {
             if (credentials == null) {
                 $scope.error = "Please fill out the form correctly";
