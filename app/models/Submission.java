@@ -29,7 +29,7 @@ public class Submission extends Model {
     public String path;
 
     @OneToMany
-    private ArrayList<SubmissionResult> results;
+    public ArrayList<SubmissionResult> results;
 
     /*
     Relationship

@@ -71,6 +71,10 @@ public class SubmissionsCtrl extends Controller {
                 }
             }
             s.grade = grade;
+            s.results = srs;
+            s.save();
+            student.addSubmission(s);
+            student.update();
 
         }catch (Exception e){e.printStackTrace();}
 
