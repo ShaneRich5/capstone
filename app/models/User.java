@@ -10,118 +10,119 @@ import play.data.validation.Constraints;
 @Table(name = "users")
 public class User extends Model {
 
-	public static Finder<Long, User> find = new Finder<Long, User>(User.class);
+    public static Model.Finder<Long,User> find = new Model.Finder<Long, User>(User.class);
+//	public static Model.Finder<Long, User> find = new Finder<>(User.class);
 
-	@Id
-	@Constraints.Required
-	@Column(unique = true)
+    @Id
+    @Constraints.Required
+    @Column(unique = true)
     public String idNum;
 
-	public String name;
+    public String name;
 
-	public String password;
+    public String password;
 
-	public String email;
+    public String email;
 
-	public boolean rememberMe;
+    public boolean rememberMe;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	public List<Token> tokens;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Token> tokens;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	public Role role;
+    @ManyToOne(cascade = CascadeType.ALL)
+    public Role role;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	public List<Submission> submissions;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Submission> submissions;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	public List<Assignment> assignments;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Assignment> assignments;
 
-	@ManyToMany
-	public List<Course> courses;
+    @ManyToMany
+    public List<Course> courses;
 
-	public List<Assignment> getAssignments() {
-		return assignments;
-	}
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
 
-	public void setAssignments(List<Assignment> assignments) {
-		this.assignments = assignments;
-	}
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
 
-	public List<Submission> getSubmissions() {
-		return submissions;
-	}
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
 
-	public void setSubmissions(List<Submission> submissions) {
-		this.submissions = submissions;
-	}
+    public void setSubmissions(List<Submission> submissions) {
+        this.submissions = submissions;
+    }
 
-	public boolean isRememberMe() {
-		return rememberMe;
-	}
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
 
-	public void setRememberMe(boolean rememberMe) {
-		this.rememberMe = rememberMe;
-	}
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
+    }
 
-	public User() {
-		courses = new ArrayList<>();
-		submissions = new ArrayList<>();
-		assignments = new ArrayList<>();
-	}
+    public User() {
+        courses = new ArrayList<>();
+        submissions = new ArrayList<>();
+        assignments = new ArrayList<>();
+    }
 
-	public User(String idNum,String name, String email) {
-		this.idNum = idNum;
-		this.name = name;
-		this.email = email;
-	}
+    public User(String idNum,String name, String email) {
+        this.idNum = idNum;
+        this.name = name;
+        this.email = email;
+    }
 
-	public String getIdNum() {
-		return idNum;
-	}
+    public String getIdNum() {
+        return idNum;
+    }
 
-	public void setIdNum(String idNum) {
-		this.idNum = idNum;
-	}
-
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
+    public void setIdNum(String idNum) {
+        this.idNum = idNum;
+    }
 
 
-	public Role getRole() {
-		return role;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
 
-	public List<Course> getCourses() {
-		return courses;
-	}
+    public Role getRole() {
+        return role;
+    }
 
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
-	}
-	public void addCourses(List<Course> courses) {courses.forEach(course -> this.courses.add(course));}
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+    public void addCourses(List<Course> courses) {courses.forEach(course -> this.courses.add(course));}
     public void addCourse(Course c) {courses.add(c);}
 
-	public void addSubmission(Submission s) {submissions.add(s);}
+    public void addSubmission(Submission s) {submissions.add(s);}
 
 
 
@@ -144,16 +145,16 @@ public class User extends Model {
 //		return returnUser;
 //	}
 
-	public static User findByEmail(String email) {
-		return User.find.where()
-				.eq("email", email)
-				.findUnique();
-	}
+    public static User findByEmail(String email) {
+        return User.find.where()
+                .eq("email", email)
+                .findUnique();
+    }
 
-	@Override
-	public void save() {
-		// hash password
-		super.save();
-	}
+    @Override
+    public void save() {
+        // hash password
+        super.save();
+    }
 
 }

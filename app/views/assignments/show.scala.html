@@ -22,7 +22,7 @@
     </ul>
 
     @if(session.get("role").equals("Student")){
-    <a class="btn btn-primary" href="/courses/@assignment.course.name/assignments/@assignment.id/submissions/create">
+    <a class="btn btn-primary" href="/assignments/@assignment.id/submissions/create">
         Add
     </a>
     }

@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import org.apache.commons.io.FileUtils;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -10,6 +11,7 @@ import views.html.submissions.*;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -24,11 +26,18 @@ public class SubmissionsCtrl extends Controller {
         return ok(index.render(Assignment.find.byId(id).submissions));
     }
 
-    public Result create(String name, long id) {
-        return ok(create.render(Assignment.find.byId(id)));
+    public Result create(long id) {
+        Assignment assignment = Assignment.find.byId(id);
+        User student = User.find.where().eq("idNum",session().get("id")).findUnique();
+        if(assignment == null) return ok("Not found");
+//        if(assignment.course.participants.contains(student))
+//        {
+//
+//        }
+        return ok(create.render(assignment));
     }
 
-    public Result store(String name, long id) {
+    public Result store(long id) {
         User student = User.find.where().eq("idNum",session().get("id")).findUnique();
         Assignment assignment = Assignment.find.byId(id);
 
@@ -43,23 +52,23 @@ public class SubmissionsCtrl extends Controller {
         String contentType = program.getContentType();
         File file = program.getFile();
 
-        String uploadPath = "/programs" +
-                "/courses/" + assignment.course.code +
-                "/assignments/" + assignment.id +
-                "/submissions/" + student.getIdNum();
+        String uploadPath = "/assignments/" + assignment.id +
+                "/submissions/" + student.getIdNum()+"/";
+
 
         File dir = new File(uploadPath);
-
-        if (! dir.exists()) {
-            System.out.println("Creating dir: " + uploadPath);
-            boolean saved = dir.mkdir();
-
-            System.out.println((saved) ? "dir created" : "failed to make dir");
-        }
-
-        boolean saved = file.renameTo(new File(uploadPath, fileName));
-        Submission s = new Submission(student,assignment,assignment.course,null,uploadPath+"/"+fileName,0);
+        System.out.println(dir.getAbsolutePath());
         try {
+            FileUtils.forceMkdir(dir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File newFile = new File(uploadPath+fileName);
+
+        //boolean saved = file.renameTo();
+        Submission s = new Submission(student,assignment,assignment.course,null,uploadPath+fileName,0);
+        try {
+            FileUtils.copyFile(file,newFile);
             ArrayList<SubmissionResult> srs = Submission.gradeSubmission(s);
             int grade = 0;
             for(TestCase t: s.assignment.tests.get(0).getTestCases())
@@ -77,10 +86,7 @@ public class SubmissionsCtrl extends Controller {
             student.update();
 
         }catch (Exception e){e.printStackTrace();}
-
-        if (!saved) return ok("Unable to save file");
-
-        return ok("name: " + fileName);
+        return ok("name: " + fileName+" Grade: "+s.grade);
     }
 
     public Result show(String name, long courseId, long submissionId) {

@@ -48,7 +48,7 @@ create table submissions (
 
 create table tests (
   id                        bigint not null,
-  full_test                 varchar(255),
+  full_test                 varchar(10000),
   assignment_id             bigint,
   constraint pk_tests primary key (id))
 ;
@@ -74,6 +74,7 @@ create table tokens (
 create table users (
   id_num                    varchar(255) not null,
   name                      varchar(255),
+  password                  varchar(255),
   email                     varchar(255),
   remember_me               boolean,
   role_id                   integer,
