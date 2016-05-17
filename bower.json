@@ -1,0 +1,29 @@
+{
+  "name": "autograder",
+  "description": "Capstone project",
+  "main": "index.js",
+  "authors": [
+    "shane richards"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "autograder",
+    "java",
+    "play2"
+  ],
+  "homepage": "https://github.com/ShaneRich5/capstone",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-ui-router": "^0.2.18",
+    "Materialize": "materialize#^0.97.6",
+    "jquery": "^2.2.3"
+  }
+}

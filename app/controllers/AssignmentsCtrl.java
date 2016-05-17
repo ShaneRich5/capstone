@@ -55,7 +55,7 @@ public class AssignmentsCtrl extends Controller {
         t.setTestCases(testCases);
 
         File assignmentFile = assignmentFilePart.getFile();
-        
+
 
         Course course = Course.findByCode(courseCode);
         User lecturer = User.find.where().eq("idNum",session().get("id")).findUnique();
