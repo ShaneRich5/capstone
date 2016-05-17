@@ -48,6 +48,7 @@ create table submissions (
 
 create table tests (
   id                        bigint not null,
+  full_test                 varchar(255),
   assignment_id             bigint,
   constraint pk_tests primary key (id))
 ;

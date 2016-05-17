@@ -43,7 +43,16 @@ public class Submission extends Model {
     @ManyToOne(cascade = CascadeType.ALL)
     public User student;
 
-    public static SubmissionResult gradeSubmission(Submission submission) throws IOException {
+    public Submission(User student, Assignment assignment, Course course, ArrayList<SubmissionResult> results, String path, double grade) {
+        this.student = student;
+        this.assignment = assignment;
+        this.course = course;
+        this.results = results;
+        this.path = path;
+        this.grade = grade;
+    }
+
+    public static ArrayList<SubmissionResult> gradeSubmission(Submission submission) throws IOException, InterruptedException {
         if(submission.assignment.language.equals("Java"))
         {
             JavaTesting javaTesting = new JavaTesting();
@@ -55,7 +64,8 @@ public class Submission extends Model {
             File driver = new File(path+"/TestRunner.java");
             FileUtils.write(driver,javaTesting.generateRunner("submissiontest.java"));
             FileUtils.write(testFile,submission.assignment.tests.get(0).fullTest);
-
+            ArrayList<SubmissionResult> results = javaTesting.unitTest(path+"/TestRunner.java",path+"/submissiontest.java",path+"/"+assignmentFile.getName(),submission.assignment.tests.get(0),submission);
+            return results;
         }
         return null;
     }
