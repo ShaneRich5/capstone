@@ -22,8 +22,18 @@
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
-            .state('')
-            .state('show_user', {
+            
+            .state('course_show', {
+                url: '/courses/:courseId',
+                templateUrl: templatePath('courses/show'),
+                controller: 'CoursesShowCtrl'
+            })
+            .state('course_all', {
+                url: '/courses',
+                templateUrl: templatePath('courses/all'),
+                controller: 'CoursesAllCtrl'
+            })
+            .state('user_show', {
                 url: '/users/:userId',
                 templateUrl: templatePath('users/show'),
                 controller: 'UsersShowCtrl'
