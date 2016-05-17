@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 /**
  * Created by shane on 3/15/16.
  */
@@ -19,7 +21,7 @@ public class Assignment extends Model {
     public static Finder<Long, Assignment> find = new Finder<>(Assignment.class);
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=SEQUENCE, generator="AS_SEQ")
     public Long id;
 
     public String name;
@@ -64,5 +66,9 @@ public class Assignment extends Model {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

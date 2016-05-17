@@ -3,7 +3,7 @@ package controllers;
 import com.google.inject.Inject;
 import models.*;
 import models.Forms.AssignmentForm;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.*;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
@@ -44,14 +44,13 @@ public class AssignmentsCtrl extends Controller {
         Test t = null;
         t = new Test();
         Http.MultipartFormData.FilePart<File> assignmentFilePart = body.getFile("assignment");
-        for(int i = 0; i < formFields.amount; ++i) {
-            Http.MultipartFormData.FilePart<File> tcase = body.getFile("case"+String.valueOf(i));
-            File f = tcase.getFile();
-            try {
-                TestCase tc = TestCase.javaTestCaseFromForm(f, formFields, i, t);
-                testCases.add(tc);
-            }catch (Exception e){return internalServerError();}
-        }
+        Http.MultipartFormData.FilePart<File> tcases = body.getFile("case");
+        File f = tcases.getFile();
+        try {
+            t.fullTest = FileUtils.readFileToString(f);
+            ArrayList<TestCase> tcs = TestCase.javaTestCasesFromFile(f,t);
+            testCases = tcs;
+        }catch (Exception e){return internalServerError();}
         t.setTestCases(testCases);
 
         File assignmentFile = assignmentFilePart.getFile();
@@ -71,20 +70,40 @@ public class AssignmentsCtrl extends Controller {
         assignment.lecturer = lecturer;
         assignment.language = language;
         assignment.tests.add(t);
-        String path = "assignments/"+assignment.course.code+"/"+assignmentFile.getName();
-        assignment.setPath(path);
-        assignment.save();
+        assignment.setPath("");
+        t.setAssignment(assignment);
 
+//        assignment.setPath(path);
+        assignment.save();
+        t.save();
+        String path = "assignments/"+(Assignment.find.nextId()-1)+"/"+assignmentFilePart.getFilename();
+        assignment.setPath(path);
+        assignment.update();
         try {
+
             FileUtils.moveFile(assignmentFile, new File(path));
-        }catch (Exception e){return internalServerError();}
+        }
+        catch (Exception e){return internalServerError();}
         course.assignments.add(assignment);
+
         course.update();
 
-        return redirect(routes.AssignmentsCtrl.show(course.name, assignment.id));
+        return ok(finalize.render(t));
     }
 
-    public Result show(String name, long id) {
+    public Result download(long id)
+    {
+        Assignment assignment = Assignment.find.byId(id);
+        if (null == assignment) return ok("Assignment not found");
+//        User u = ;
+        if(assignment.course.participants.contains(User.find.where().eq("idNum",session().get("id")).findUnique()))
+        {
+            return ok(new File(assignment.getPath()));
+        }else
+            return redirect("/");
+    }
+
+    public Result show(long id) {
         Assignment assignment = Assignment.find.byId(id);
 
         if (null == assignment) return ok("Assignment not found");

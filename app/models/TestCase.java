@@ -2,16 +2,20 @@ package models;
 
 import com.avaje.ebean.Model;
 import models.Forms.AssignmentForm;
+//import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.data.validation.Constraints;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
  * Created by uhhh on 5/16/16.
@@ -21,18 +25,22 @@ import java.io.IOException;
 public class TestCase extends Model
 {
     public static Finder<Long, Test> find = new Finder<>(Test.class);
-    @Id
-    private String name;
 
-    private String markschemeDescription;
+    @Id
+    @GeneratedValue(strategy=SEQUENCE, generator="CASE_SEQ")
+    public Long id;
+
+    public String name;
+
+    public String markschemeDescription;
 
     @Constraints.Required
-    private int mark;
+    public int mark;
 
     @ManyToOne
-    private Test test;
+    public Test test;
 
-    private String code;
+    public String code;
 
     public TestCase(String name, String markschemeDescription, int mark, String code) {
         this.name = name;
@@ -81,6 +89,69 @@ public class TestCase extends Model
         this.code = code;
     }
 
+    public static ArrayList<TestCase> javaTestCasesFromFile(File testCase, Test t) throws IOException {
+        ArrayList<TestCase> returnList = new ArrayList<>();
+        String file = FileUtils.readFileToString(testCase);
+        Scanner scanner = new Scanner(file);
+        String current = scanner.next();
+        while(scanner.hasNext())
+        {
+            if(current.equals("@Test"))
+            {
+                System.out.println("Found Test");
+                while (!(current.contains("(") && current.contains(")")))
+                    current = scanner.next();
+
+                if(current.contains("(") && current.contains(")"))
+                {
+                    String name = current.split("\\(")[0];
+                    String code = "";
+                    System.out.println("Name: "+name);
+                    String split[] = current.split("\\)");
+                    if(split.length >0)
+                        current = split[split.length-1];
+                    int closeCount = -1;
+                    while (closeCount != 0)
+                    {
+                        System.out.println("current: "+current);
+
+                        code += current;
+                        int matches = StringUtils.countMatches(current,'{');
+                        System.out.println("matches{: "+matches);
+                        if(closeCount == -1)
+                        {
+                            if(matches > 0)
+                                closeCount += 1;
+
+                        }
+                        if(matches > 0)
+                            closeCount += matches;
+
+                        matches = StringUtils.countMatches(current,'}');
+                        if(matches > 0)
+                            closeCount -= matches;
+                        if (closeCount != 0)
+                            current = scanner.next();
+                        else {
+                            split = current.split("}");
+                            if(split.length >0)
+                            current = split[split.length-1];
+                        }
+                        System.out.println("count: "+closeCount);
+                    }
+                    TestCase testCase1 = new TestCase(name,"",0,code);
+                    System.out.println("Added Test: "+name);
+                    testCase1.setTest(t);
+                    returnList.add(testCase1);
+                }
+            }else
+                current = scanner.next();
+        }
+        return returnList;
+
+    }
+
+
     public static TestCase javaTestCaseFromForm(File testCase, AssignmentForm form, int number, Test test) throws IOException {
         TestCase returnCase = null;
         FileInputStream inputStream = new FileInputStream(testCase);
@@ -123,5 +194,9 @@ public class TestCase extends Model
         }
         returnCase.setTest(test);
         return returnCase;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

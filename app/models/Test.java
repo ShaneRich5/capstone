@@ -5,6 +5,8 @@ import com.avaje.ebean.Model;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 /**
  * Created by uhhh on 5/16/16.
  */
@@ -14,13 +16,16 @@ public class Test extends Model
 {
     public static Finder<Long, Test> find = new Finder<>(Test.class);
     @Id
-    private int id;
+    @GeneratedValue(strategy=SEQUENCE, generator="CUST_SEQ")
+    public long id;
+
+    public String fullTest;
 
     @OneToMany
     private List<TestCase> testCases;
 
     @ManyToOne
-    private Assignment assignment;
+    public Assignment assignment;
 
 
     public List<TestCase> getTestCases() {
@@ -37,6 +42,10 @@ public class Test extends Model
 
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
+    }
+
+    public long getId() {
+        return id;
     }
 
 }
