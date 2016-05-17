@@ -1,0 +1,10 @@
+package services.moss;
+
+/**
+ * Created by Shane on 5/17/2016.
+ */
+public enum Stage {
+
+    DISCONNECTED, AWAITING_INITIALIZATION, AWAITING_LANGUAGE, AWAITING_FILES, AWAITING_QUERY, AWAITING_RESULTS, AWAITING_END;
+
+}
