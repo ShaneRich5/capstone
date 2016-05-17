@@ -7,10 +7,16 @@
 # An example controller showing how to write asynchronous code
 # GET     /message                    controllers.AsyncController.message
 
-GET     /moss                       controllers.MossCtrl.testMoss
 
 # Root page
-GET     /                           controllers.Assets.at(path="/public/", file="base.html")
+GET     /                           controllers.Assets.at(path="/public", file="base.html")
+
+#GET     /                           controllers.PagesCtrl.base
+
+# Angular partials
+GET     /paritals/*file             controllers.Assets.at(path="/public/partials/", file)
+GET     /bower_components/*file     controllers.Assets.at(path="/public/bower_components/", file)
+GET     /app/*file                  controllers.Assets.at(path="/public/app/", file)
 
 # Home pages
 GET		/home 						controllers.PagesCtrl.home

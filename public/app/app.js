@@ -6,29 +6,51 @@
 
 (function(angular){
     angular
-        .module('autograder', ['ui-router'])
-        .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', routesConfigFn]);
+        .module('autograder', ['satellizer', 'ui.router'])
+        .config(['$stateProvider', '$urlRouterProvider', '$authProvider', routesConfigFn]);
 
-    function routesConfigFn($stateProvider, $urlRouterProvider, $httpProvider) {
+    function routesConfigFn($stateProvider, $urlRouterProvider, $authProvider) {
 
         function templatePath(path) {
-            return 'public/partials/' + path + '.html';
+            return '/assets/partials/' + path + '.html';
         }
-
-        $urlRouterProvider.otherwise('/');
+        
+        $authProvider.baseUrl = '/';
+        $authProvider.loginUrl = '/auth/login';
+        $authProvider.signupUrl = '/auth/register';
+        
+        $urlRouterProvider.otherwise('/home');
 
         $stateProvider
+            .state('register', {
+                url: '/register',
+                templateUrl: templatePath('auth/register'),
+                controller: 'RegisterCtrl'
+            })
+            .state('logout', {
+                url: '/logout',
+                templateUrl: 'Signing out...',
+                controller: 'LogoutCtrl'
+            })
+            .state('login', {
+                url: '/login',
+                templateUrl: templatePath('auth/login'),
+                controller: 'LoginCtrl'
+            })
             .state('home', {
-                url: '/',
-                templateUrl: templatePath('pages/home')
+                url: '/home',
+                templateUrl: templatePath('pages/home'),
+                controller: 'HomeCtrl'
             })
             .state('about', {
                 url: '/about',
-                templateUrl: templatePath('pages/about')
+                templateUrl: templatePath('pages/about'),
+                controller: 'AboutCtrl'
             })
-            .state('about', {
+            .state('contact', {
                 url: '/contact',
-                templateUrl: templatePath('pages/contact')
+                templateUrl: templatePath('pages/contact'),
+                controller: 'ContactCtr;'
             });
     }
 })(angular);
