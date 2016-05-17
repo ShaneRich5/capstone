@@ -7,25 +7,36 @@
     <link rel="stylesheet" href="bower_components/Materialize/dist/css/materialize.css" media="screen,projection">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body>
+<body ng-app="autograder">
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">AutoGrader</a>
+            <a href="#" class="brand-logo" style="padding-left: 10px">AutoGrader</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="">Login</a></li>
-                <li><a href="">Register</a></li>
-                <li><a href="">Contact</a></li>
-                <li><a href="">About</a></li>
+                <li><a ui-sref="login">Login</a></li>
+                <li><a ui-sref="register">Register</a></li>
+                <li><a ui-sref="contact">Contact</a></li>
+                <li><a ui-sref="about">About</a></li>
             </ul>
         </div>
     </nav>
+
+    <section ui-view>Loading</section>
 
 
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="bower_components/satellizer/satellizer.js"></script>
 
-    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+
+    <script type="text/javascript" src="app/controllers/auth/LoginCtrl.js"></script>
+    <script type="text/javascript" src="app/controllers/auth/LogoutCtrl.js"></script>
+    <script type="text/javascript" src="app/controllers/auth/RegisterCtrl.js"></script>
+
+    <script type="text/javascript" src="app/controllers/pages/HomeCtrl.js"></script>
+    <script type="text/javascript" src="app/controllers/pages/AboutCtrl.js"></script>
+    <script type="text/javascript" src="app/controllers/pages/ContactCtrl.js"></script>
 </body>
 </html>

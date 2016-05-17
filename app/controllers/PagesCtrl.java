@@ -4,6 +4,7 @@ import models.Role;
 import models.User;
 import play.mvc.*;
 
+import views.html.base;
 import views.html.pages.*;
 
 /**
@@ -15,6 +16,10 @@ public class PagesCtrl extends Controller {
 //	public Result base() {
 //		return ok(base.render());
 //	}
+
+	public Result base() {
+		return ok(base.render());
+	}
 
 	public Result home() {
 		if (0 == User.find.findRowCount()) session().clear();
