@@ -1,0 +1,23 @@
+<div class="container">
+    <h1>{{ user.name }}</h1>
+    <p>{{ user.role }}</p>
+
+    <p ng-hide="user.courses">No courses available</p>
+
+    <ul ng-show="user.courses" class="collection with-header">
+        <li class="collection-header">Courses</li>
+        <li class="collection-item" ng-repeat="course in user.courses">
+            {{ course.name }}
+        </li>
+    </ul>
+
+    <div ng-show="user.role == 'lecturer'">
+
+    </div>
+
+    <div ng-show="user.role == 'student'">
+
+    </div>
+
+    <a ng-show="user.current" class="btn">Edit Profile</a>
+</div>

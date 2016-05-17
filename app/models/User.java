@@ -19,6 +19,8 @@ public class User extends Model {
 
 	public String name;
 
+	public String password;
+
 	public String email;
 
 	public boolean rememberMe;

@@ -16,12 +16,28 @@
         }
         
         $authProvider.baseUrl = '/';
-        $authProvider.loginUrl = '/auth/login';
-        $authProvider.signupUrl = '/auth/register';
+        $authProvider.loginUrl = '/api/auth/login';
+        $authProvider.signupUrl = '/api/auth/register';
         
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
+            
+            .state('course_show', {
+                url: '/courses/:courseId',
+                templateUrl: templatePath('courses/show'),
+                controller: 'CoursesShowCtrl'
+            })
+            .state('course_all', {
+                url: '/courses',
+                templateUrl: templatePath('courses/all'),
+                controller: 'CoursesAllCtrl'
+            })
+            .state('user_show', {
+                url: '/users/:userId',
+                templateUrl: templatePath('users/show'),
+                controller: 'UsersShowCtrl'
+            })
             .state('register', {
                 url: '/register',
                 templateUrl: templatePath('auth/register'),
