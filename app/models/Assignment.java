@@ -21,6 +21,9 @@ public class Assignment extends Model {
 
     public String name;
 
+    @ManyToOne
+    public Language language;
+
     @Constraints.Required
     public String description;
 
@@ -39,5 +42,13 @@ public class Assignment extends Model {
     public Assignment(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 }

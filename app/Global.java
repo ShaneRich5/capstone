@@ -23,6 +23,14 @@ public class Global extends GlobalSettings {
             new Role(3,"Student","").save();
         }
 
+        if(Language.find.findRowCount() == 0)
+        {
+            new Language("Java").save();
+            new Language("Python").save();
+            new Language("C").save();
+
+        }
+
         if(Course.find.findRowCount() == 0)
         {
             new Course("Systems Programming","","COMP2130").save();

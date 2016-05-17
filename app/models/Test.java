@@ -10,13 +10,40 @@ import java.util.List;
  */
 @Entity
 @Table(name = "tests")
-public class Test extends Model {
+public class Test extends Model
+{
+    @Id
+    private int id;
 
-    public String testHeader;
-
-    @OneToMany
-    public List<TestCase> testCases;
+    private String testHeader;
 
     @ManyToOne(cascade = CascadeType.ALL)
     public Assignment assignment;
+
+    private List<TestCase> testCases;
+
+
+    public String getTestHeader() {
+        return testHeader;
+    }
+
+    public void setTestHeader(String testHeader) {
+        this.testHeader = testHeader;
+    }
+
+    public List<TestCase> getTestCases() {
+        return testCases;
+    }
+
+    public void setTestCases(List<TestCase> testCases) {
+        this.testCases = testCases;
+    }
+
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
+    }
 }
