@@ -9,7 +9,7 @@
 
     <h3>New Assignment</h3>
 
-    <form role="form" method="POST" id="loginForm" action="/courses/@course.name/assignments">
+    <form enctype="multipart/form-data" role="form" method="POST" id="loginForm" action="/courses/@course.code/assignments">
       <div class="form-group">
         <label for="name">name</label>
         <input type="text" class="form-control" id="name" name="name">
@@ -31,12 +31,15 @@
 
       <div class="form-group">
         <label for="File">Upload Assignment File</label><br/>
-        <a class="btn btn-primary" href="">Choose File</a>
+        <input type="file" class="btn btn-primary" name="assignment">
       </div>
 
+
       <div class="form-group">
-        <label for="class"> Enter Test Cases File</label><br/>
-        <a class="btn btn-primary" href="">Choose File</a>
+        <label for="class">  Test Cases Files</label><br/>
+              <label for="class">  Name</label><br/>
+              <input type="text" name="name" >
+              <input type="file" class="btn btn-primary" name="case" multiple="multiple">
       </div>
 
       <button id="submit" type="submit" class="btn btn-default">Submit</button>

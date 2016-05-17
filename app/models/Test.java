@@ -5,6 +5,8 @@ import com.avaje.ebean.Model;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 /**
  * Created by uhhh on 5/16/16.
  */
@@ -12,24 +14,19 @@ import java.util.List;
 @Table(name = "tests")
 public class Test extends Model
 {
+    public static Finder<Long, Test> find = new Finder<>(Test.class);
     @Id
-    private int id;
+    @GeneratedValue(strategy=SEQUENCE, generator="CUST_SEQ")
+    public long id;
 
-    private String testHeader;
+    public String fullTest;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    public Assignment assignment;
-
+    @OneToMany
     private List<TestCase> testCases;
 
+    @ManyToOne
+    public Assignment assignment;
 
-    public String getTestHeader() {
-        return testHeader;
-    }
-
-    public void setTestHeader(String testHeader) {
-        this.testHeader = testHeader;
-    }
 
     public List<TestCase> getTestCases() {
         return testCases;
@@ -46,4 +43,9 @@ public class Test extends Model
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
+
+    public long getId() {
+        return id;
+    }
+
 }

@@ -10,6 +10,7 @@ create table assignments (
   description               varchar(255),
   lecturer_id_num           varchar(255),
   course_code               varchar(255),
+  path                      varchar(255) not null,
   constraint pk_assignments primary key (id))
 ;
 
@@ -46,16 +47,20 @@ create table submissions (
 ;
 
 create table tests (
-  id                        integer not null,
-  test_header               varchar(255),
+  id                        bigint not null,
+  full_test                 varchar(255),
   assignment_id             bigint,
   constraint pk_tests primary key (id))
 ;
 
 create table testcases (
-  code                      varchar(255),
+  id                        bigint not null,
+  name                      varchar(255),
   markscheme_description    varchar(255),
-  test_id                   integer)
+  mark                      integer,
+  test_id                   bigint,
+  code                      varchar(255),
+  constraint pk_testcases primary key (id))
 ;
 
 create table tokens (
@@ -87,7 +92,7 @@ create table users_courses (
   courses_code                   varchar(255) not null,
   constraint pk_users_courses primary key (users_id_num, courses_code))
 ;
-create sequence assignments_seq;
+create sequence AS_SEQ;
 
 create sequence courses_seq;
 
@@ -97,7 +102,9 @@ create sequence roles_seq;
 
 create sequence submissions_seq;
 
-create sequence tests_seq;
+create sequence CUST_SEQ;
+
+create sequence CASE_SEQ;
 
 create sequence tokens_seq;
 
@@ -164,7 +171,7 @@ drop table if exists users_courses;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
-drop sequence if exists assignments_seq;
+drop sequence if exists AS_SEQ;
 
 drop sequence if exists courses_seq;
 
@@ -174,7 +181,9 @@ drop sequence if exists roles_seq;
 
 drop sequence if exists submissions_seq;
 
-drop sequence if exists tests_seq;
+drop sequence if exists CUST_SEQ;
+
+drop sequence if exists CASE_SEQ;
 
 drop sequence if exists tokens_seq;
 

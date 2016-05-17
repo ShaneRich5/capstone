@@ -22,5 +22,6 @@ javaOptions in Test ++= Seq(
 
 //libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.36"
 libraryDependencies += "org.jsoup" % "jsoup" % "1.7.2"
+libraryDependencies += "commons-io" % "commons-io" % "2.4"
 
 fork in run := true

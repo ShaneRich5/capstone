@@ -1,0 +1,30 @@
+@(test: Test)
+
+@main("Finalize Test") {
+
+  <div class="container">
+
+  @if(session.get("role").equals("Lecturer")){
+    <h1>Enter Test Case Parameters</h1>
+
+    <form role="form" method="POST" id="assignForm" action="/tests/finalize/@test.getId">
+      @for(testCase <- test.getTestCases){
+          <label for="id">Case: @testCase.name</label><br/>
+        <div class="form-group">
+          <label for="id">Markscheme Description</label><br/>
+          <input type="text" class="form-control" id="description@testCase.getId" name="description@testCase.getId"><br/>
+        </div>
+
+        <div class="form-group">
+          <label for="id">Marks</label><br/>
+          <input type="number" class="form-control" id="mark@testCase.getId" name="mark@testCase.getId"><br/>
+        </div>
+      }
+
+      <button type="submit" class="btn btn-default">Finalize</button>
+    </form>
+  }
+
+  </div>
+
+}

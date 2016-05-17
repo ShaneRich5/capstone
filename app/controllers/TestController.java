@@ -1,6 +1,8 @@
 package controllers;
 
 import models.Assignment;
+import models.Test;
+import models.TestCase;
 import models.User;
 import play.data.*;
 import play.data.DynamicForm;
@@ -37,6 +39,30 @@ public Result upload(){
 	return ok(testcase.render());
 
 }
+
+    public Result finalizeTest(long id)
+    {
+        if(session().get("id") == null) return redirect("login");
+        User u = User.find.where().eq("idNum",session().get("id")).findUnique();
+        Test t = Test.find.where().eq("id",id).findUnique();
+        if(t == null) return ok("Could not find test.");
+        if(u == null) return redirect("/logout");
+        System.out.println("Finalize: "+t.id+" ,"+t.assignment.name);//+ " "+t.getAssignment().lecturer.name);
+        if(t.assignment.lecturer.idNum.equals(session().get("idNum")))
+        {
+            DynamicForm requestData = formFactory.form().bindFromRequest();
+            for(TestCase testCase:t.getTestCases())
+            {
+                String description = requestData.get("description"+testCase.getId());
+                int mark = Integer.parseInt(requestData.get("mark"+testCase.getId()));
+                testCase.setMarkschemeDescription(description);
+                testCase.setMark(mark);
+                testCase.update();
+            }
+        }
+        t.update();
+        return redirect("/assignments/"+t.assignment.id);
+    }
 
 public Result addFiles(){
 		Http.MultipartFormData<File> body = request().body().asMultipartFormData();

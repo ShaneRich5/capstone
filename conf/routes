@@ -61,10 +61,13 @@ GET     /lecturers/:id              controllers.LecturersController.show(id: Str
 # Assignment pages
 GET     /courses/:name/assignments          controllers.AssignmentsCtrl.all(name)
 GET     /courses/:name/assignments/create   controllers.AssignmentsCtrl.create(name)
-POST    /courses/:name/assignments          controllers.AssignmentsCtrl.store(name)
+POST    /courses/:code/assignments          controllers.AssignmentsCtrl.store(code)
 GET     /courses/:name/assignments/edit     controllers.AssignmentsCtrl.edit(name)
 PUT     /courses/:name/assignments          controllers.AssignmentsCtrl.update(name)
-GET     /courses/:name/assignments/:id      controllers.AssignmentsCtrl.show(name, id: Long)
+GET     /assignments/:id      controllers.AssignmentsCtrl.show(id :Long)
+GET     /assignments/download/:id      controllers.AssignmentsCtrl.download(id :Long)
+
+POST    /tests/finalize/:id                 controllers.TestController.finalizeTest(id : Long)
 
 # Submission pages
 GET     /courses/:name/assignments/:courseId/submissions            controllers.SubmissionsCtrl.all(name, courseId: Long)

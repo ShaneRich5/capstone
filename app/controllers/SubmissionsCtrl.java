@@ -1,15 +1,16 @@
 package controllers;
 
-import models.Assignment;
-import models.User;
+import models.*;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import services.testing.JavaTesting;
 import views.html.submissions.*;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by shane on 3/15/16.
@@ -28,7 +29,7 @@ public class SubmissionsCtrl extends Controller {
     }
 
     public Result store(String name, long id) {
-        User student = User.findByEmail(session().get("email"));
+        User student = User.find.where().eq("idNum",session().get("id")).findUnique();
         Assignment assignment = Assignment.find.byId(id);
 
         if (null == student) return ok("Please login");
@@ -43,11 +44,9 @@ public class SubmissionsCtrl extends Controller {
         File file = program.getFile();
 
         String uploadPath = "/programs" +
-                "/courses/" + assignment.course.name +
+                "/courses/" + assignment.course.code +
                 "/assignments/" + assignment.id +
-                "/submissions/" + student.getName();
-
-        uploadPath = uploadPath.toLowerCase();
+                "/submissions/" + student.getIdNum();
 
         File dir = new File(uploadPath);
 
@@ -59,6 +58,25 @@ public class SubmissionsCtrl extends Controller {
         }
 
         boolean saved = file.renameTo(new File(uploadPath, fileName));
+        Submission s = new Submission(student,assignment,assignment.course,null,uploadPath+"/"+fileName,0);
+        try {
+            ArrayList<SubmissionResult> srs = Submission.gradeSubmission(s);
+            int grade = 0;
+            for(TestCase t: s.assignment.tests.get(0).getTestCases())
+            {
+                for(SubmissionResult sr: srs)
+                {
+                    if(sr.testCase.equals(t) && sr.passed)
+                        grade += t.mark;
+                }
+            }
+            s.grade = grade;
+            s.results = srs;
+            s.save();
+            student.addSubmission(s);
+            student.update();
+
+        }catch (Exception e){e.printStackTrace();}
 
         if (!saved) return ok("Unable to save file");
 

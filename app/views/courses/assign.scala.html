@@ -8,8 +8,12 @@
 
         <form role="form" method="POST" id="assignForm" action="/courses/assign/">
             <div class="form-group">
-                <label for="id">Lecturer ID#</label>
-                <input type="text" class="form-control" id="id" name="id">
+                <label for="id">Lecturer Name</label>
+                <select name="id" id="id">
+                @for(l <- User.find.where().eq("role",Role.find.where().eq("name","Lecturer").findUnique()).findList()) {
+                    <option value="@l.idNum">@l.getName</option>
+                }
+                </select>
             </div>
             <div class="form-group">
                 <input type="hidden" class="form-control" id="code" name="code" value="@code">

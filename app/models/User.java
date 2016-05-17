@@ -121,6 +121,9 @@ public class User extends Model {
 	public void addCourses(List<Course> courses) {courses.forEach(course -> this.courses.add(course));}
     public void addCourse(Course c) {courses.add(c);}
 
+	public void addSubmission(Submission s) {submissions.add(s);}
+
+
 
 //	public static User authenticate(String idNum, String password) {
 //		Map<String , Object> credentials = new HashMap<String , Object>();

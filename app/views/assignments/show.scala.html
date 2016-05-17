@@ -3,9 +3,12 @@
 @main("Assignment") {
 
 <div class="container">
-    <h1>@assignment.name by <span class="small">@assignment.lecturer.name</span></h1>
+    <h1>@assignment.name by <span class="small">@assignment.lecturer.getName</span></h1>
 
     <p>@assignment.description</p>
+
+    <h2>Assignment File</h2>
+    <a href="/assignments/download/@assignment.id">@assignment.name</a>
 
     <h3>Submissions</h3>
 
@@ -18,9 +21,11 @@
         }
     </ul>
 
+    @if(session.get("role").equals("Student")){
     <a class="btn btn-primary" href="/courses/@assignment.course.name/assignments/@assignment.id/submissions/create">
         Add
     </a>
+    }
 </div>
 
 }
