@@ -9,7 +9,7 @@
 
 
 # Root page
-GET     /                           controllers.Assets.at(path="/public", file="base.html")
+# GET     /                           controllers.Assets.at(path="/public", file="base.html")
 
 # Angular partials
 GET     /paritals/*file             controllers.Assets.at(path="/public/partials/", file)
@@ -20,10 +20,8 @@ GET     /app/*file                  controllers.Assets.at(path="/public/app/", f
 POST    /api/auth/login             controllers.api.AuthCtrl.login
 POST    /api/auth/register          controllers.api.AuthCtrl.register
 
-
-
-
 # Home pages
+GET     /                           controllers.PagesCtrl.home
 GET		/home 						controllers.PagesCtrl.home
 GET		/about						controllers.PagesCtrl.about
 GET		/contact					controllers.PagesCtrl.contact

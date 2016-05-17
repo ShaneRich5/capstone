@@ -18,6 +18,7 @@
             $http.post('api/courses/' + $stateParams.courseId + '/assignments/new', assignment)
                 .then(function(res) {
                     $log.log(res);
+                    
                     $state.go('course_show', {userId: $stateParams.courseId});
                 }, function(err) {
                     $log.log(err);
